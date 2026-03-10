@@ -3,12 +3,72 @@ import { useState, useEffect, useRef } from "react";
 /* ══════════════════════════════════════════════
    ДАННЫЕ — замените на реальных студентов
 ══════════════════════════════════════════════ */
+/* ─── ФОТО: положите файлы photo1.jpg, photo2.jpg ... в папку /public/
+   photo1.jpg → участник 1, photo2.jpg → участник 2, и т.д.
+   victor.jpg → Виктор Александрович ─── */
+const MEMBER_PHOTOS = {
+  1: "/sveza/photo1.jpg",
+  2: "/sveza/photo2.jpg",
+  3: "/sveza/photo3.jpg",
+  4: "/sveza/photo4.jpg",
+  5: "/sveza/photo5.jpg",
+};
+const VICTOR_PHOTO = "data:image/png;base64,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";
+
 const MEMBERS = [
-  { id: 1, name: "Погодина Эльза-София",      role: "Капитан команды",         initials: "ПЭ", photo: null },
-  { id: 2, name: "Погорелов Максим",      role: "Аналитик и оратор",          initials: "ПМ", photo: null },
-  { id: 3, name: "Вертячкин Алексей",       role: "Генератор идей",         initials: "ВА", photo: null },
-  { id: 4, name: "Чистов Никита",      role: "Исследователь",    initials: "ЧН", photo: null },
-  { id: 5, name: "Вахитов Алексей",  role: "Разработчик/дизайнер сайта-презентации",        initials: "ВА", photo: null },
+  { id: 1, name: "Погодина Эльза-София", role: "Капитан команды",                         initials: "ПЭ" },
+  { id: 2, name: "Погорелов Максим",      role: "Аналитик и оратор",                       initials: "ПМ" },
+  { id: 3, name: "Вертячкин Алексей",     role: "Генератор идей",                          initials: "ВА" },
+  { id: 4, name: "Чистов Никита",         role: "Исследователь",                           initials: "ЧН" },
+  { id: 5, name: "Вахитов Алексей",       role: "Разработчик/дизайнер сайта-презентации",  initials: "ВА" },
+  { id: 6, name: "Виктор Александрович",  role: "Доцент кафедры машин автоматизированных систем, к.т.н., доцент. Куратор команды", initials: "ВА", isVictor: true },
+];
+
+const CHAT_DATA = [
+  {
+    id: 1, name: "Погодина Эльза-София", initials: "ПЭ", time: "14:32",
+    messages: [
+      { from: "them", text: "Всем привет! Как продвигается работа над кейсом? 👀", time: "14:28" },
+      { from: "them", text: "Я уже почти закончила введение, осталось оформить выводы 🌿", time: "14:30" },
+      { from: "them", text: "Кто берёт блок с конкурентами?", time: "14:32" },
+    ],
+  },
+  {
+    id: 2, name: "Погорелов Максим", initials: "ПМ", time: "13:15",
+    messages: [
+      { from: "them", text: "Народ, нашёл крутую статью про рынок фанеры в Азии", time: "13:10" },
+      { from: "them", text: "Там такие цифры — СВЕЗА реально монстр 😅", time: "13:12" },
+      { from: "them", text: "Скидываю в общий чат перед защитой", time: "13:15" },
+    ],
+  },
+  {
+    id: 3, name: "Вертячкин Алексей", initials: "ВА", time: "вчера",
+    messages: [
+      { from: "them", text: "А кто придумал 4 кейса за 4 недели 💀", time: "22:40" },
+      { from: "them", text: "Ладно, идеи есть — завтра покажу слайды", time: "22:55" },
+    ],
+  },
+  {
+    id: 4, name: "Чистов Никита", initials: "ЧН", time: "вчера",
+    messages: [
+      { from: "them", text: "Нашёл годную инфу про ESG-стратегию для 3-й недели 📄", time: "19:05" },
+      { from: "them", text: "Готовлю слайд с таймлайном — будет огонь 🔥", time: "19:20" },
+    ],
+  },
+  {
+    id: 5, name: "Вахитов Алексей", initials: "ВА", time: "12:00",
+    messages: [
+      { from: "them", text: "Сайт обновил, проверьте на телефоне 📱", time: "11:55" },
+      { from: "them", text: "Если что-то криво — пишите, пофикшу 🛠️", time: "12:00" },
+    ],
+  },
+  {
+    id: "victor", name: "Виктор Александрович", initials: "ВА", isVictor: true, time: "10:02",
+    messages: [
+      { from: "them", text: "Добрый день, команда! Посмотрел первый кейс — неплохое начало.", time: "09:58" },
+      { from: "them", text: "На защите говорите уверенно. И да — меньше котиков на слайдах, больше аналитики 😄", time: "10:02" },
+    ],
+  },
 ];
 
 /* ══════════════════════════════════════════════
@@ -464,6 +524,7 @@ function PresentationViewer({ week }) {
           Нажмите на слайд для просмотра на весь экран
         </div>
       </div>
+      <ChatBubble/>
     </>
   );
 }
@@ -508,37 +569,38 @@ function WipBlock({ week }) {
 }
 
 /* ══ Карточка участника ══ */
-function MemberCard({ member, onUpload }) {
-  const ref = useRef();
-  const grads = [
-    "linear-gradient(135deg,#3d6b52,#8ab870)",
-    "linear-gradient(135deg,#5a7e3a,#a0c060)",
-    "linear-gradient(135deg,#2d5a3a,#6b9e6b)",
-    "linear-gradient(135deg,#4a6b5a,#7aab68)",
-    "linear-gradient(135deg,#3a5a6b,#6b9e8a)",
-    "linear-gradient(135deg,#6b5a3a,#b89a6b)",
-  ];
-  const bg = grads[member.id % grads.length];
-  const onFile = (e) => {
-    const f = e.target.files[0]; if (!f) return;
-    const r = new FileReader();
-    r.onload = ev => onUpload(member.id, ev.target.result);
-    r.readAsDataURL(f);
-  };
+const GRADS = [
+  "linear-gradient(135deg,#3d6b52,#8ab870)",
+  "linear-gradient(135deg,#5a7e3a,#a0c060)",
+  "linear-gradient(135deg,#2d5a3a,#6b9e6b)",
+  "linear-gradient(135deg,#4a6b5a,#7aab68)",
+  "linear-gradient(135deg,#3a5a6b,#6b9e8a)",
+  "linear-gradient(135deg,#6b5a3a,#b89a6b)",
+];
+
+function MemberAvatar({ member, size = 54, fontSize = "1.1rem" }) {
+  const bg = GRADS[member.id % GRADS.length];
+  const photoSrc = member.isVictor ? VICTOR_PHOTO : MEMBER_PHOTOS[member.id];
+  const [err, setErr] = useState(false);
   return (
-    <div className="mcard">
-      <div className="mavatar" onClick={()=>ref.current.click()} title="Загрузить фото">
-        {member.photo
-          ? <img src={member.photo} alt={member.name} style={{width:"100%",height:"100%",objectFit:"cover",borderRadius:"50%"}}/>
-          : <div style={{width:"100%",height:"100%",background:bg,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize:"1.1rem",fontWeight:700,color:"#fff"}}>{member.initials}</div>
-        }
-        <div className="moverlay">📷</div>
-        <input ref={ref} type="file" accept="image/*" style={{display:"none"}} onChange={onFile}/>
-      </div>
+    <div style={{width:size,height:size,borderRadius:"50%",flexShrink:0,overflow:"hidden"}}>
+      {photoSrc && !err
+        ? <img src={photoSrc} alt={member.name} onError={()=>setErr(true)}
+            style={{width:"100%",height:"100%",objectFit:"cover"}}/>
+        : <div style={{width:"100%",height:"100%",background:bg,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize,fontWeight:700,color:"#fff"}}>{member.initials}</div>
+      }
+    </div>
+  );
+}
+
+function MemberCard({ member }) {
+  return (
+    <div className={`mcard${member.isVictor ? " mcard-victor" : ""}`}>
+      <MemberAvatar member={member}/>
       <div>
         <div className="mname">{member.name}</div>
         <div className="mrole">{member.role}</div>
-        <div style={{width:6,height:6,borderRadius:"50%",background:member.photo?"#8ab870":"#c8dab8",marginTop:8}}/>
+        <div style={{width:6,height:6,borderRadius:"50%",background:member.isVictor?"#4a7c59":"#c8dab8",marginTop:8}}/>
       </div>
     </div>
   );
@@ -547,8 +609,76 @@ function MemberCard({ member, onUpload }) {
 /* ══════════════════════════════════════════════
    ГЛАВНЫЙ КОМПОНЕНТ
 ══════════════════════════════════════════════ */
+/* ══ Чат ══ */
+function ChatBubble() {
+  const [open, setOpen] = useState(false);
+  const [conv, setConv] = useState(null);
+
+  const getMember = (chat) =>
+    MEMBERS.find(m => chat.isVictor ? m.isVictor : m.id === chat.id)
+    || { initials: chat.initials, id: chat.id };
+
+  const lastMsg = (chat) => chat.messages[chat.messages.length - 1].text;
+
+  return (
+    <div className="chat-fab">
+      {open && (
+        <div className="chat-win">
+          {/* Шапка */}
+          <div className="chat-hd">
+            <div>
+              <div className="chat-hd-t">{conv ? conv.name : "Сообщения"}</div>
+              <div className="chat-hd-s">{conv ? "Личная переписка" : `${CHAT_DATA.length} диалогов`}</div>
+            </div>
+            <button className="chat-x" onClick={()=>{setOpen(false);setConv(null);}}>✕</button>
+          </div>
+
+          {conv ? (
+            <>
+              <div className="chat-conv-hd">
+                <button className="chat-back" onClick={()=>setConv(null)}>←</button>
+                <MemberAvatar member={getMember(conv)} size={30} fontSize="0.7rem"/>
+                <div className="chat-conv-name">{conv.name}</div>
+              </div>
+              <div className="chat-msgs">
+                {conv.messages.map((msg, i) => (
+                  <div key={i}>
+                    <div className="chat-msg">{msg.text}</div>
+                    <div className="chat-time">{msg.time}</div>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="chat-list">
+              {CHAT_DATA.map((chat, i) => (
+                <div key={i} className="chat-row" onClick={()=>setConv(chat)}>
+                  <MemberAvatar member={getMember(chat)} size={40} fontSize="0.8rem"/>
+                  <div className="chat-row-info">
+                    <div className="chat-row-name">{chat.name}</div>
+                    <div className="chat-row-prev">{lastMsg(chat)}</div>
+                  </div>
+                  <div className="chat-row-time">{chat.time}</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      <button className="chat-btn" onClick={()=>{setOpen(o=>!o);setConv(null);}}>
+        {open
+          ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        }
+        {!open && <div className="chat-badge">{CHAT_DATA.length}</div>}
+      </button>
+    </div>
+  );
+}
+
 export default function SVEZASite() {
-  const [members, setMembers] = useState(MEMBERS);
+  const members = MEMBERS;
   const [activeWeek, setActiveWeek] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [vis, setVis] = useState({});
@@ -567,8 +697,6 @@ export default function SVEZASite() {
     document.querySelectorAll("[data-obs]").forEach(el => obs.observe(el));
     return () => obs.disconnect();
   }, []);
-
-  const upload = (id, url) => setMembers(p => p.map(m => m.id === id ? {...m, photo: url} : m));
 
   return (
     <>
@@ -677,6 +805,35 @@ export default function SVEZASite() {
         .d1{transition-delay:.08s;}.d2{transition-delay:.18s;}.d3{transition-delay:.28s;}
         .d4{transition-delay:.38s;}.d5{transition-delay:.48s;}.d6{transition-delay:.58s;}
 
+        .mcard-victor{background:linear-gradient(135deg,#f6fdf4,#edf8e5);border-color:rgba(61,107,82,0.25);}
+
+        /* ── CHAT BUBBLE ── */
+        .chat-fab{position:fixed;bottom:24px;right:24px;z-index:500;}
+        .chat-btn{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#2d5a3a,#5a9a6a);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 22px rgba(40,80,50,0.38);transition:transform 0.2s,box-shadow 0.2s;position:relative;}
+        .chat-btn:hover{transform:scale(1.08);box-shadow:0 7px 30px rgba(40,80,50,0.48);}
+        .chat-badge{position:absolute;top:-3px;right:-3px;width:19px;height:19px;background:#e05a4a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.58rem;color:#fff;font-weight:700;border:2px solid #fff;}
+        .chat-win{position:absolute;bottom:68px;right:0;width:320px;background:#fff;border-radius:22px;box-shadow:0 14px 52px rgba(30,60,40,0.2);overflow:hidden;border:1px solid rgba(61,107,82,0.11);animation:chatPop 0.22s cubic-bezier(0.34,1.56,0.64,1);}
+        @keyframes chatPop{from{opacity:0;transform:scale(0.88) translateY(12px);}to{opacity:1;transform:none;}}
+        .chat-hd{background:linear-gradient(135deg,#1e3a28,#3d6b52);padding:15px 18px;display:flex;align-items:center;justify-content:space-between;}
+        .chat-hd-t{font-family:'Playfair Display',serif;font-size:1rem;color:#fff;font-weight:600;}
+        .chat-hd-s{font-size:0.67rem;color:rgba(255,255,255,0.52);margin-top:2px;}
+        .chat-x{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.14);border:none;cursor:pointer;color:rgba(255,255,255,0.75);font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s;}
+        .chat-x:hover{background:rgba(255,255,255,0.25);}
+        .chat-list{max-height:360px;overflow-y:auto;}
+        .chat-row{padding:11px 15px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:background 0.15s;border-bottom:1px solid rgba(61,107,82,0.06);}
+        .chat-row:hover{background:#f4faf1;}
+        .chat-row-info{flex:1;min-width:0;}
+        .chat-row-name{font-size:0.85rem;font-weight:600;color:#1a3220;margin-bottom:2px;}
+        .chat-row-prev{font-size:0.74rem;color:#7a8a70;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .chat-row-time{font-size:0.64rem;color:#aaa;flex-shrink:0;}
+        .chat-conv-hd{padding:11px 15px;display:flex;align-items:center;gap:9px;background:#f5faf3;border-bottom:1px solid rgba(61,107,82,0.08);}
+        .chat-back{background:none;border:none;cursor:pointer;color:#4a7c59;font-size:1.1rem;line-height:1;padding:0;}
+        .chat-conv-name{font-size:0.88rem;font-weight:600;color:#1a3220;}
+        .chat-msgs{padding:13px;display:flex;flex-direction:column;gap:7px;max-height:248px;overflow-y:auto;background:#f0f7ed;}
+        .chat-msg{max-width:82%;padding:9px 13px;border-radius:14px;font-size:0.81rem;line-height:1.55;align-self:flex-start;background:#fff;color:#1a3220;border-radius:4px 14px 14px 14px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+        .chat-time{font-size:0.6rem;color:#bbb;margin-top:2px;padding-left:3px;}
+        @media(max-width:480px){.chat-win{width:calc(100vw - 28px);right:-4px;}}
+
         @media(max-width:768px){
           .hero{padding:106px 20px 56px;}.hright,.hcard{display:none;}
           .sec{padding:52px 20px;}.nav{padding:13px 20px;}.nav.sc{padding:9px 20px;}
@@ -764,11 +921,10 @@ export default function SVEZASite() {
             </div>
           </div>
         </div>
-        <p className="uphint">Нажмите на аватар, чтобы загрузить фото 📷</p>
         <div className="tgrid">
           {members.map((m, i) => (
             <div key={m.id} id={`m${m.id}`} data-obs className={`fi d${(i % 6) + 1} ${vis[`m${m.id}`] ? "v" : ""}`}>
-              <MemberCard member={m} onUpload={upload}/>
+              <MemberCard member={m}/>
             </div>
           ))}
         </div>
@@ -839,6 +995,7 @@ export default function SVEZASite() {
           </div>
         </div>
       </footer>
+      <ChatBubble/>
     </>
   );
 }
