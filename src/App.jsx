@@ -755,7 +755,6 @@ function PresentationViewer({ week }) {
           <DownloadButton week={week}/>
         </div>
       </div>
-      <ChatBubble/>
     </>
   );
 }
