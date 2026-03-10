@@ -63,7 +63,7 @@ const CHAT_DATA = [
     ],
   },
   {
-    id: "victor", name: "Виктор Александрович", initials: "ВА", isVictor: true, time: "10:02",
+    id: "victor", name: "Марков Виктор Александрович", initials: "ВА", isVictor: true, time: "10:02",
     messages: [
       { from: "them", text: "Добрый день, команда! Посмотрел первый кейс — неплохое начало.", time: "09:58" },
       { from: "them", text: "На защите говорите уверенно. И да — меньше котиков на слайдах, больше аналитики 😄", time: "10:02" },
@@ -362,8 +362,32 @@ function SlideConclusion({ s }) {
   );
 }
 
+function SlideImage({ s }) {
+  return (
+    <div style={{background: s.imageBg || s.bg || "#1a2e1e", height:"100%", position:"relative", overflow:"hidden", display:"flex", alignItems:"flex-end"}}>
+      {s.src && (
+        <img src={s.src} alt={s.title} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit: s.objectFit || "cover",objectPosition: s.objectPosition || "center"}}/>
+      )}
+      <div style={{position:"absolute",inset:0,background:"linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.12) 60%, transparent 100%)"}}/>
+      <div style={{position:"relative",zIndex:1,padding:"28px 36px",width:"100%", background: s.panelBg || "transparent"}}>
+        {s.tags && (
+          <div style={{display:"flex",gap:8,marginBottom:10,flexWrap:"wrap"}}>
+            {s.tags.map((tag,i) => (
+              <span key={i} style={{fontSize:"0.62rem",letterSpacing:1.5,textTransform:"uppercase",background:"rgba(255,255,255,0.18)",color:"rgba(255,255,255,0.9)",padding:"3px 10px",borderRadius:20,fontWeight:600}}>{tag}</span>
+            ))}
+          </div>
+        )}
+        {s.title && <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.3rem,2.5vw,2rem)",color:"#fff",fontWeight:700,marginBottom:8,lineHeight:1.2}}>{s.title}</h2>}
+        {s.caption && <p style={{fontSize:"0.82rem",color:"rgba(255,255,255,0.75)",lineHeight:1.6,fontWeight:300}}>{s.caption}</p>}
+        {s.imageIcon && <div style={{fontSize:"3rem",marginBottom:6}}>{s.imageIcon}</div>}
+        {s.imageLabel && <div style={{fontSize:"0.75rem",color:"rgba(255,255,255,0.7)",fontWeight:500}}>{s.imageLabel}</div>}
+      </div>
+    </div>
+  );
+}
+
 function renderSlide(slide) {
-  const map = { cover: SlideCover, stats: SlideStats, textimage: SlideTextImage, timeline: SlideTimeline, swot: SlideSwot, conclusion: SlideConclusion };
+  const map = { cover: SlideCover, stats: SlideStats, textimage: SlideTextImage, timeline: SlideTimeline, swot: SlideSwot, conclusion: SlideConclusion, image: SlideImage };
   const C = map[slide.layout];
   return C ? <C s={slide}/> : null;
 }
@@ -774,8 +798,9 @@ export default function SVEZASite() {
         .awrap{max-width:880px;margin:50px auto 0;display:flex;flex-direction:column;gap:13px;}
         .aitem{background:#fff;border-radius:20px;border:1px solid rgba(61,107,82,0.1);overflow:hidden;box-shadow:0 2px 12px rgba(40,80,50,0.04);transition:box-shadow 0.3s;}
         .aitem.open{box-shadow:0 8px 48px rgba(40,80,50,0.12);}
-        .abtn{width:100%;background:none;border:none;cursor:pointer;padding:22px 26px;display:flex;align-items:center;gap:15px;text-align:left;transition:background 0.2s;}
+        .abtn{width:100%;background:none;border:none;cursor:pointer;padding:22px 26px;display:flex;align-items:center;gap:15px;text-align:left;transition:background 0.2s;outline:none;}
         .abtn:hover{background:rgba(61,107,82,0.025);}
+        .abtn:focus{outline:none;}
         .abadge{width:50px;height:50px;border-radius:13px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;}
         .abl{font-size:0.5rem;text-transform:uppercase;letter-spacing:1px;opacity:0.8;}
         .abn{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;line-height:1;}
@@ -900,10 +925,6 @@ export default function SVEZASite() {
           <div className="hwd"/>
           <WoodRings style={{position:"absolute",right:-60,top:-60,width:280,height:280,color:"rgba(255,255,255,0.07)"}}/>
           <div className="htxt">СВЕЗА</div>
-          <div className="hcard">
-            <div className="hcl">Клиент кейса</div>
-            <div className="hcv">sveza.ru</div>
-          </div>
         </div>
       </section>
 
