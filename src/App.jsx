@@ -1,5 +1,74 @@
 import { useState, useEffect, useRef } from "react";
 
+/* ══ Утилита: загрузить изображение как base64 ══ */
+async function loadImageAsBase64(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth || 1280;
+      canvas.height = img.naturalHeight || 720;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      resolve(canvas.toDataURL("image/png"));
+    };
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+/* ══ Скачать как PDF (jsPDF через CDN) ══ */
+async function downloadAsPDF(week) {
+  if (!window.jspdf) {
+    await new Promise((res, rej) => {
+      const s = document.createElement("script");
+      s.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+      s.onload = res; s.onerror = rej;
+      document.head.appendChild(s);
+    });
+  }
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({ orientation: "landscape", unit: "px", format: [1280, 720], hotfixes: ["px_scaling"] });
+  const slides = week.downloadSlides || [];
+  for (let i = 0; i < slides.length; i++) {
+    if (i > 0) pdf.addPage([1280, 720], "landscape");
+    try {
+      const b64 = await loadImageAsBase64(slides[i]);
+      pdf.addImage(b64, "PNG", 0, 0, 1280, 720);
+    } catch(e) {
+      console.warn("Не удалось загрузить слайд:", slides[i]);
+    }
+  }
+  pdf.save(`СВЕЗА_Кейс_${week.week}_${week.title}.pdf`);
+}
+
+/* ══ Скачать как PPTX (pptxgenjs через CDN) ══ */
+async function downloadAsPPTX(week) {
+  if (!window.PptxGenJS) {
+    await new Promise((res, rej) => {
+      const s = document.createElement("script");
+      s.src = "https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.bundle.js";
+      s.onload = res; s.onerror = rej;
+      document.head.appendChild(s);
+    });
+  }
+  const prs = new window.PptxGenJS();
+  prs.layout = "LAYOUT_16x9";
+  prs.title = `СВЕЗА — Кейс ${week.week}: ${week.title}`;
+  const slides = week.downloadSlides || [];
+  for (let i = 0; i < slides.length; i++) {
+    const slide = prs.addSlide();
+    try {
+      const b64 = await loadImageAsBase64(slides[i]);
+      slide.addImage({ data: b64, x: 0, y: 0, w: "100%", h: "100%" });
+    } catch(e) {
+      console.warn("Не удалось загрузить слайд:", slides[i]);
+    }
+  }
+  await prs.writeFile({ fileName: `СВЕЗА_Кейс_${week.week}_${week.title}.pptx` });
+}
+
 /* ══════════════════════════════════════════════
    ДАННЫЕ — замените на реальных студентов
 ══════════════════════════════════════════════ */
@@ -111,7 +180,19 @@ const WEEKS = [
       },
     ],
 
-    /* ── Слайды презентации ── */
+    /* ── PNG для скачивания (положите файлы в /public/sveza/week1/) ──
+       Пример: "/sveza/week1/slide1.png", "/sveza/week1/slide2.png" и т.д.
+       Если массив пуст — кнопка скачивания не отображается. */
+    downloadSlides: [
+      "/sveza/week1/slide1.png",
+      "/sveza/week1/slide2.png",
+      "/sveza/week1/slide3.png",
+      "/sveza/week1/slide4.png",
+      "/sveza/week1/slide5.png",
+      "/sveza/week1/slide6.png",
+    ],
+
+    /* ── Слайды презентации (JSX-рендер) ── */
     slides: [
       {
         layout: "cover",
@@ -197,6 +278,7 @@ const WEEKS = [
     accentLight: "#d2e8be",
     tag: "Продукт · Инновации",
     insights: [],   // ← добавьте выводы после защиты кейса
+    downloadSlides: [], // ← добавьте пути к PNG: ["/sveza/week2/slide1.png", ...]
     slides: [],     // ← добавьте слайды и поставьте ready: true
   },
 
@@ -209,6 +291,7 @@ const WEEKS = [
     accentLight: "#c4ddd0",
     tag: "ESG · Экология",
     insights: [],
+    downloadSlides: [],
     slides: [],
   },
 
@@ -221,6 +304,7 @@ const WEEKS = [
     accentLight: "#bcd0dd",
     tag: "Стратегия · M&A",
     insights: [],
+    downloadSlides: [],
     slides: [],
   },
 ];
@@ -297,10 +381,18 @@ function SlideTextImage({ s }) {
           ))}
         </div>
       </div>
-      <div style={{width:"36%",background:s.imageBg,borderRadius:18,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:10,position:"relative",overflow:"hidden"}}>
-        <WoodRings style={{position:"absolute",color:"rgba(255,255,255,0.1)",width:"150%",height:"150%",top:"-25%",left:"-25%"}}/>
-        <span style={{position:"relative",zIndex:1,fontSize:"3.5rem"}}>{s.imageIcon}</span>
-        <span style={{position:"relative",zIndex:1,fontSize:"0.72rem",color:"rgba(255,255,255,0.75)",fontWeight:500,textAlign:"center",padding:"0 16px"}}>{s.imageLabel}</span>
+      <div style={{width:"36%",background:s.imageBg||"linear-gradient(135deg,#c8dfc8,#7aab68)",borderRadius:18,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:10,position:"relative",overflow:"hidden"}}>
+        {s.src ? (
+          <img src={s.src} alt={s.imageLabel||s.title} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",borderRadius:18}}/>
+        ) : (
+          <>
+            <WoodRings style={{position:"absolute",color:"rgba(255,255,255,0.1)",width:"150%",height:"150%",top:"-25%",left:"-25%"}}/>
+            <span style={{position:"relative",zIndex:1,fontSize:"3.5rem"}}>{s.imageIcon}</span>
+          </>
+        )}
+        {s.imageLabel && (
+          <span style={{position:"absolute",bottom:12,left:0,right:0,textAlign:"center",zIndex:1,fontSize:"0.72rem",color:"rgba(255,255,255,0.85)",fontWeight:500,padding:"0 16px",textShadow:"0 1px 4px rgba(0,0,0,0.4)"}}>{s.imageLabel}</span>
+        )}
       </div>
     </div>
   );
@@ -488,6 +580,116 @@ function PresentationModal({ week, startSlide, onClose }) {
   );
 }
 
+/* ══ Кнопка скачивания презентации ══ */
+function DownloadButton({ week }) {
+  const [loading, setLoading] = useState(null); // "pdf" | "pptx" | null
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [error, setError] = useState(null);
+  const ref = useRef(null);
+  const slides = week.downloadSlides || [];
+  if (!slides.length) return null;
+
+  // Закрытие меню при клике вне
+  useEffect(() => {
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setMenuOpen(false); };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  const handle = async (fmt) => {
+    setMenuOpen(false);
+    setLoading(fmt);
+    setError(null);
+    try {
+      if (fmt === "pdf") await downloadAsPDF(week);
+      else await downloadAsPPTX(week);
+    } catch(e) {
+      setError("Ошибка при создании файла. Проверьте, что PNG-файлы доступны.");
+      console.error(e);
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  return (
+    <div ref={ref} style={{position:"relative",display:"inline-block"}}>
+      <button
+        onClick={() => !loading && setMenuOpen(o => !o)}
+        style={{
+          display:"flex",alignItems:"center",gap:9,
+          background: loading ? "#f0f0ec" : `linear-gradient(135deg,${week.accent},${week.accentLight ? week.accent+"cc" : week.accent})`,
+          color: loading ? "#aaa" : "#fff",
+          border:"none",borderRadius:11,padding:"10px 20px",
+          fontFamily:"'Mulish',sans-serif",fontSize:"0.83rem",fontWeight:700,
+          cursor: loading ? "default" : "pointer",
+          boxShadow: loading ? "none" : `0 4px 20px ${week.accent}44`,
+          transition:"all 0.22s",
+          opacity: loading ? 0.7 : 1,
+        }}
+        onMouseEnter={e => { if (!loading) e.currentTarget.style.transform = "translateY(-1px)"; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = "none"; }}
+      >
+        {loading ? (
+          <>
+            <svg style={{animation:"spin 1s linear infinite"}} width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            Создаю {loading.toUpperCase()}…
+          </>
+        ) : (
+          <>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Скачать презентацию
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" style={{opacity:0.7,transition:"transform 0.2s",transform:menuOpen?"rotate(180deg)":"none"}}><polyline points="6 9 12 15 18 9"/></svg>
+          </>
+        )}
+      </button>
+
+      {menuOpen && (
+        <div style={{
+          position:"absolute",bottom:"calc(100% + 8px)",left:0,
+          background:"#fff",borderRadius:14,
+          boxShadow:"0 8px 40px rgba(30,60,40,0.18)",
+          border:`1px solid ${week.accent}22`,
+          overflow:"hidden",minWidth:220,zIndex:100,
+          animation:"chatPop 0.18s cubic-bezier(0.34,1.56,0.64,1)",
+        }}>
+          <div style={{padding:"10px 14px 8px",borderBottom:`1px solid ${week.accent}12`}}>
+            <div style={{fontSize:"0.62rem",letterSpacing:1.5,textTransform:"uppercase",color:week.accent,fontWeight:700}}>
+              {slides.length} слайд{slides.length===1?"":"ов"} · Выберите формат
+            </div>
+          </div>
+          {[
+            { fmt:"pdf",  icon:"📄", label:"Скачать PDF",  sub:"Портативный · для просмотра" },
+            { fmt:"pptx", icon:"📊", label:"Скачать PPTX", sub:"PowerPoint · для редактирования" },
+          ].map(({ fmt, icon, label, sub }) => (
+            <button key={fmt} onClick={() => handle(fmt)} style={{
+              width:"100%",background:"none",border:"none",cursor:"pointer",
+              padding:"12px 16px",display:"flex",alignItems:"center",gap:12,
+              transition:"background 0.15s",textAlign:"left",
+            }}
+              onMouseEnter={e=>e.currentTarget.style.background=`${week.accent}0a`}
+              onMouseLeave={e=>e.currentTarget.style.background="none"}
+            >
+              <span style={{fontSize:"1.3rem"}}>{icon}</span>
+              <div>
+                <div style={{fontSize:"0.85rem",fontWeight:600,color:"#1a3220",fontFamily:"'Mulish',sans-serif"}}>{label}</div>
+                <div style={{fontSize:"0.7rem",color:"#7a8a70",marginTop:1}}>{sub}</div>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {error && (
+        <div style={{marginTop:8,fontSize:"0.72rem",color:"#c04040",background:"#fff0f0",border:"1px solid #f0c0c0",borderRadius:8,padding:"6px 12px"}}>
+          ⚠️ {error}
+        </div>
+      )}
+
+      <style>{`@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}`}</style>
+    </div>
+  );
+}
+
 /* ══ Вьюер презентации (встроенный, маленький) ══ */
 function PresentationViewer({ week }) {
   const [cur, setCur] = useState(0);
@@ -546,6 +748,11 @@ function PresentationViewer({ week }) {
         {/* Подсказка */}
         <div style={{textAlign:"center",marginTop:10,fontSize:"0.7rem",color:"#9aaa90"}}>
           Нажмите на слайд для просмотра на весь экран
+        </div>
+
+        {/* Кнопка скачивания */}
+        <div style={{marginTop:18,display:"flex",justifyContent:"center"}}>
+          <DownloadButton week={week}/>
         </div>
       </div>
       <ChatBubble/>
@@ -706,6 +913,8 @@ export default function SVEZASite() {
   const [activeWeek, setActiveWeek] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const [vis, setVis] = useState({});
+
+  useEffect(() => { document.title = "Свеза. Кейс чемпионат"; }, []);
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 56);
