@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://lannettanastemi.github.io/sveza-site",
+  "homepage": "https://onlybezobrazie.github.io/sveza",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
