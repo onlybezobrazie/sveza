@@ -510,6 +510,7 @@ function SlideNav({ cur, total, onPrev, onNext, onDot, accent, size = "normal" }
 /* ══ Модальное окно на весь экран ══ */
 function PresentationModal({ week, startSlide, onClose }) {
   const [cur, setCur] = useState(startSlide);
+  const [isPortraitMobile, setIsPortraitMobile] = useState(false);
   const total = week.slides.length;
 
   // Закрытие по Escape, навигация стрелками
@@ -527,10 +528,76 @@ function PresentationModal({ week, startSlide, onClose }) {
     };
   }, [total, onClose]);
 
+  // Поворот в альбомную ориентацию при открытии презентации
+  useEffect(() => {
+    let orientationLocked = false;
+    let mqCleanup = null;
+
+    const tryLock = async () => {
+      try {
+        // Пробуем нативный API (Android Chrome, некоторые другие браузеры)
+        if (screen?.orientation?.lock) {
+          await screen.orientation.lock("landscape");
+          orientationLocked = true;
+          return;
+        }
+      } catch (_) {
+        // Браузер не поддерживает или запрос отклонён (iOS, десктоп)
+      }
+
+      // Запасной вариант: CSS-поворот для мобильного портретного режима
+      const mq = window.matchMedia(
+        "(max-width: 900px) and (orientation: portrait)"
+      );
+      const update = (e) => setIsPortraitMobile(e.matches);
+      setIsPortraitMobile(mq.matches);
+      mq.addEventListener("change", update);
+      mqCleanup = () => mq.removeEventListener("change", update);
+    };
+
+    tryLock();
+
+    return () => {
+      if (orientationLocked) {
+        try { screen.orientation.unlock(); } catch (_) {}
+      }
+      setIsPortraitMobile(false);
+      mqCleanup?.();
+    };
+  }, []);
+
+  /* Позиционирование: обычное или повёрнутое на 90° */
+  const baseModalStyle = {
+    position: "fixed",
+    zIndex: 1000,
+    background: "rgba(10,24,16,0.92)",
+    backdropFilter: "blur(12px)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "clamp(8px,3vw,24px)",
+    animation: "fadeInModal 0.25s ease",
+    overflowY: "auto",
+  };
+
+  const positionStyle = isPortraitMobile
+    ? {
+        // CSS-поворот: элемент разворачивается в ширину экрана
+        width: "100vh",
+        height: "100vw",
+        top: "calc(50% - 50vw)",
+        left: "calc(50% - 50vh)",
+        transform: "rotate(90deg)",
+        transformOrigin: "center center",
+        overflowY: "hidden",
+      }
+    : { inset: 0 };
+
   return (
     <div
       onClick={onClose}
-      style={{position:"fixed",inset:0,zIndex:1000,background:"rgba(10,24,16,0.92)",backdropFilter:"blur(12px)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"clamp(8px,3vw,24px)",animation:"fadeInModal 0.25s ease",overflowY:"auto"}}
+      style={{ ...baseModalStyle, ...positionStyle }}
     >
       <style>{`
         @keyframes fadeInModal { from { opacity:0; } to { opacity:1; } }
