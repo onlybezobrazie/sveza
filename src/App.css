@@ -1245,21 +1245,30 @@ body::after {
   /* ВШТЭ animated block — mobile overrides */
   .hright { min-height: 300px; height: 300px; }
 
-  .logo-vshte {
-    width: 36%;
-    max-width: 150px;
-    top: 12%;
-    right: 26%;
-  }
 
-  .logo-sveza-img {
-    height: 120px;
-    margin-right: -32px;
-  }
+.logo-vshte {
+  width: 40%;
+  max-width: 140px;
+  top: 8%;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  animation: floatA 7s ease-in-out infinite;
+}
 
-  .logo-sveza-label {
-    font-size: 2.8rem;
-  }
+.logo-sveza-img {
+  height: 100px;
+  margin-right: -28px;
+}
+
+.logo-sveza-label {
+  font-size: 2.4rem;
+}
+
+/* Подвинуть SVEZA-блок вниз, чтобы не перекрывал ВШТЭ */
+.logo-sveza {
+  bottom: 8%;
+}
 
   /* shrink the glow blob so it doesn't feel too heavy on small screens */
   .glow-blob {
@@ -1296,25 +1305,26 @@ body::after {
   .hright { min-height: 240px; height: 240px; }
 
   .logo-vshte {
-    width: 34%;
-    max-width: 130px;
-    top: 10%;
-    right: 24%;
-  }
+  width: 36%;
+  max-width: 120px;
+  top: 6%;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
 
-  .logo-sveza-img {
-    height: 96px;
-    margin-right: -26px;
-  }
+.logo-sveza-img {
+  height: 80px;
+  margin-right: -22px;
+}
 
-  .logo-sveza-label {
-    font-size: 2.2rem;
-  }
+.logo-sveza-label {
+  font-size: 1.9rem;
+}
 
-  .glow-blob {
-    width: 200px;
-    height: 200px;
-  }
+.logo-sveza {
+  bottom: 6%;
+}
 }
 
 /* ══════════════════════════════════════════════════════════
