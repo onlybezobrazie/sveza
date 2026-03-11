@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import './App.css';
+
+
 
 /* ══ Утилита: загрузить изображение как base64 ══ */
 async function loadImageAsBase64(src) {
@@ -86,11 +89,11 @@ const VICTOR_PHOTO = "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUND
 
 const MEMBERS = [
   { id: 1, name: "Погодина Эльза-София", role: "Капитан команды",                         initials: "ПЭ" },
-  { id: 2, name: "Погорелов Максим",      role: "Аналитик и оратор",                       initials: "ПМ" },
-  { id: 3, name: "Вертячкин Алексей",     role: "Генератор идей",                          initials: "ВА" },
+  { id: 2, name: "Погорелов Максим ",      role: "Аналитик и оратор",                       initials: "ПМ" },
+  { id: 3, name: "Вертячкин Алексей ",     role: "Генератор идей",                          initials: "ВА" },
   { id: 4, name: "Чистов Никита",         role: "Исследователь",                           initials: "ЧН" },
-  { id: 5, name: "Вахитов Алексей",       role: "Разработчик/дизайнер сайта-презентации",  initials: "ВА" },
-  { id: 6, name: "Виктор Александрович",  role: "Доцент кафедры машин автоматизированных систем, к.т.н., доцент. Куратор команды", initials: "ВА", isVictor: true },
+  { id: 5, name: "Вахитов Алексей ",       role: "Разработчик/дизайнер сайта-презентации",  initials: "ВА" },
+  { id: 6, name: "Марков Виктор Александрович",  role: "Доцент кафедры машин автоматизированных систем, к.т.н., доцент. Куратор команды", initials: "ВА", isVictor: true },
 ];
 
 const CHAT_DATA = [
@@ -132,7 +135,7 @@ const CHAT_DATA = [
     ],
   },
   {
-    id: "victor", name: "Марков Виктор Александрович", initials: "ВА", isVictor: true, time: "10:02",
+    id: "victor", name: "Виктор Александрович", initials: "ВА", isVictor: true, time: "10:02",
     messages: [
       { from: "them", text: "Добрый день, команда! Посмотрел первый кейс — неплохое начало.", time: "09:58" },
       { from: "them", text: "На защите говорите уверенно. И да — меньше котиков на слайдах, больше аналитики 😄", time: "10:02" },
@@ -343,7 +346,7 @@ function SlideCover({ s }) {
       <span style={{background:"rgba(255,255,255,0.14)",borderRadius:100,padding:"5px 16px",fontSize:"0.7rem",color:"rgba(255,255,255,0.85)",letterSpacing:2,textTransform:"uppercase",fontWeight:600,display:"inline-block",width:"fit-content"}}>{s.label}</span>
       <div>
         <div style={{fontSize:"2.8rem",marginBottom:14}}>{s.icon}</div>
-        <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.7rem,3.5vw,2.8rem)",color:"#fff",fontWeight:700,lineHeight:1.15,marginBottom:14,whiteSpace:"pre-line"}}>{s.title}</h2>
+        <h2 style={{fontFamily:"'Montserrat', sans-serif",fontSize:"clamp(1.7rem,3.5vw,2.8rem)",color:"#fff",fontWeight:700,lineHeight:1.15,marginBottom:14,whiteSpace:"pre-line"}}>{s.title}</h2>
         <p style={{color:"rgba(255,255,255,0.52)",fontSize:"0.85rem",marginBottom:24}}>{s.subtitle}</p>
         <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
           {s.tags.map((t,i)=>(
@@ -357,11 +360,11 @@ function SlideCover({ s }) {
 function SlideStats({ s }) {
   return (
     <div style={{background:s.bg,height:"100%",padding:"36px 44px"}}>
-      <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.7rem",color:s.accent,fontWeight:700,marginBottom:28}}>{s.title}</h2>
+      <h2 style={{fontFamily:"'Montserrat', sans-serif",fontSize:"1.7rem",color:s.accent,fontWeight:700,marginBottom:28}}>{s.title}</h2>
       <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:14,height:"calc(100% - 88px)"}}>
         {s.items.map((item,i)=>(
           <div key={i} style={{background:"#fff",borderRadius:16,padding:"22px 18px",border:`1px solid ${s.accent}20`,boxShadow:"0 2px 14px rgba(0,0,0,0.04)",display:"flex",flexDirection:"column",justifyContent:"center"}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.8rem",color:s.accent,fontWeight:700,lineHeight:1}}>{item.num}</div>
+            <div style={{fontFamily:"'Montserrat', sans-serif",fontSize:"1.8rem",color:s.accent,fontWeight:700,lineHeight:1}}>{item.num}</div>
             <div style={{fontSize:"0.7rem",color:"#6a7a60",marginTop:7,lineHeight:1.55,whiteSpace:"pre-line",fontWeight:300}}>{item.label}</div>
           </div>
         ))}
@@ -373,7 +376,7 @@ function SlideTextImage({ s }) {
   return (
     <div style={{background:s.bg,height:"100%",padding:"36px 44px",display:"flex",gap:34,alignItems:"stretch"}}>
       <div style={{flex:1,display:"flex",flexDirection:"column",justifyContent:"center"}}>
-        <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.7rem",color:s.accent,fontWeight:700,marginBottom:18}}>{s.title}</h2>
+        <h2 style={{fontFamily:"'Montserrat', sans-serif",fontSize:"1.7rem",color:s.accent,fontWeight:700,marginBottom:18}}>{s.title}</h2>
         <p style={{fontSize:"0.87rem",color:"#4a5a40",lineHeight:1.82,fontWeight:300,marginBottom:22}}>{s.body}</p>
         <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
           {s.tags.map((t,i)=>(
@@ -400,11 +403,11 @@ function SlideTextImage({ s }) {
 function SlideTimeline({ s }) {
   return (
     <div style={{background:s.bg,height:"100%",padding:"36px 44px"}}>
-      <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.7rem",color:s.accent,fontWeight:700,marginBottom:28}}>{s.title}</h2>
+      <h2 style={{fontFamily:"'Montserrat', sans-serif",fontSize:"1.7rem",color:s.accent,fontWeight:700,marginBottom:28}}>{s.title}</h2>
       <div style={{display:"flex",flexDirection:"column",height:"calc(100% - 100px)",justifyContent:"space-between"}}>
         {s.events.map((ev,i)=>(
           <div key={i} style={{display:"flex",gap:18,alignItems:"center"}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.05rem",color:s.accent,fontWeight:700,width:50,textAlign:"right",flexShrink:0}}>{ev.year}</div>
+            <div style={{fontFamily:"'Montserrat', sans-serif",fontSize:"1.05rem",color:s.accent,fontWeight:700,width:50,textAlign:"right",flexShrink:0}}>{ev.year}</div>
             <div style={{width:12,height:12,borderRadius:"50%",background:s.accent,flexShrink:0,boxShadow:`0 0 0 3px ${s.accent}28`}}/>
             <div style={{height:1,width:14,background:`${s.accent}28`,flexShrink:0}}/>
             <div style={{fontSize:"0.83rem",color:"#4a5a40",lineHeight:1.45}}>{ev.text}</div>
@@ -417,7 +420,7 @@ function SlideTimeline({ s }) {
 function SlideSwot({ s }) {
   return (
     <div style={{background:s.bg,height:"100%",padding:"36px 44px"}}>
-      <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.7rem",color:s.accent,fontWeight:700,marginBottom:22}}>{s.title}</h2>
+      <h2 style={{fontFamily:"'Montserrat', sans-serif",fontSize:"1.7rem",color:s.accent,fontWeight:700,marginBottom:22}}>{s.title}</h2>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:13,height:"calc(100% - 94px)"}}>
         {s.quadrants.map((q,i)=>(
           <div key={i} style={{background:`${q.color}08`,border:`1.5px solid ${q.color}22`,borderRadius:14,padding:"16px 16px"}}>
@@ -441,11 +444,11 @@ function SlideConclusion({ s }) {
     <div style={{background:s.bg,height:"100%",padding:"48px 52px",position:"relative",overflow:"hidden"}}>
       <Leaf style={{position:"absolute",left:-18,bottom:-8,width:110,height:150,color:"rgba(255,255,255,0.05)"}}/>
       <WoodRings style={{position:"absolute",right:-80,top:-80,width:300,height:300,color:"rgba(255,255,255,0.04)"}}/>
-      <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"1.9rem",color:s.accent,fontWeight:700,marginBottom:30}}>{s.title}</h2>
+      <h2 style={{fontFamily:"'Montserrat', sans-serif",fontSize:"1.9rem",color:s.accent,fontWeight:700,marginBottom:30}}>{s.title}</h2>
       <div style={{display:"flex",flexDirection:"column",gap:17}}>
         {s.points.map((pt,i)=>(
           <div key={i} style={{display:"flex",gap:16,alignItems:"flex-start"}}>
-            <div style={{width:28,height:28,borderRadius:8,background:`${s.accent}28`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontFamily:"'Playfair Display',serif",fontSize:"0.9rem",color:s.accent,fontWeight:700}}>{i+1}</div>
+            <div style={{width:28,height:28,borderRadius:8,background:`${s.accent}28`,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontFamily:"'Montserrat', sans-serif",fontSize:"0.9rem",color:s.accent,fontWeight:700}}>{i+1}</div>
             <p style={{fontSize:"0.87rem",color:"rgba(255,255,255,0.78)",lineHeight:1.8,fontWeight:300}}>{pt}</p>
           </div>
         ))}
@@ -469,7 +472,7 @@ function SlideImage({ s }) {
             ))}
           </div>
         )}
-        {s.title && <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(1.3rem,2.5vw,2rem)",color:"#fff",fontWeight:700,marginBottom:8,lineHeight:1.2}}>{s.title}</h2>}
+        {s.title && <h2 style={{fontFamily:"'Montserrat', sans-serif",fontSize:"clamp(1.3rem,2.5vw,2rem)",color:"#fff",fontWeight:700,marginBottom:8,lineHeight:1.2}}>{s.title}</h2>}
         {s.caption && <p style={{fontSize:"0.82rem",color:"rgba(255,255,255,0.75)",lineHeight:1.6,fontWeight:300}}>{s.caption}</p>}
         {s.imageIcon && <div style={{fontSize:"3rem",marginBottom:6}}>{s.imageIcon}</div>}
         {s.imageLabel && <div style={{fontSize:"0.75rem",color:"rgba(255,255,255,0.7)",fontWeight:500}}>{s.imageLabel}</div>}
@@ -491,7 +494,7 @@ function SlideNav({ cur, total, onPrev, onNext, onDot, accent, size = "normal" }
   return (
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:12}}>
       <button onClick={onPrev} disabled={cur===0}
-        style={{background:cur===0?"rgba(255,255,255,0.08)":"rgba(255,255,255,0.15)",border:`1.5px solid ${cur===0?"rgba(255,255,255,0.1)":"rgba(255,255,255,0.3)"}`,borderRadius:10,padding:pad,cursor:cur===0?"default":"pointer",color:cur===0?"rgba(255,255,255,0.3)":"rgba(255,255,255,0.9)",fontFamily:"'Mulish',sans-serif",fontSize:fs,fontWeight:600,transition:"all 0.2s",backdropFilter:"blur(8px)"}}>← Назад</button>
+        style={{background:cur===0?"rgba(255,255,255,0.08)":"rgba(255,255,255,0.15)",border:`1.5px solid ${cur===0?"rgba(255,255,255,0.1)":"rgba(255,255,255,0.3)"}`,borderRadius:10,padding:pad,cursor:cur===0?"default":"pointer",color:cur===0?"rgba(255,255,255,0.3)":"rgba(255,255,255,0.9)",fontFamily:"'Manrope', sans-serif",fontSize:fs,fontWeight:600,transition:"all 0.2s",backdropFilter:"blur(8px)"}}>← Назад</button>
       <div style={{display:"flex",gap:6,flex:1,justifyContent:"center"}}>
         {Array.from({length:total}).map((_,i)=>(
           <button key={i} onClick={()=>onDot(i)}
@@ -499,7 +502,7 @@ function SlideNav({ cur, total, onPrev, onNext, onDot, accent, size = "normal" }
         ))}
       </div>
       <button onClick={onNext} disabled={cur===total-1}
-        style={{background:cur===total-1?"rgba(255,255,255,0.08)":"rgba(255,255,255,0.15)",border:`1.5px solid ${cur===total-1?"rgba(255,255,255,0.1)":"rgba(255,255,255,0.3)"}`,borderRadius:10,padding:pad,cursor:cur===total-1?"default":"pointer",color:cur===total-1?"rgba(255,255,255,0.3)":"rgba(255,255,255,0.9)",fontFamily:"'Mulish',sans-serif",fontSize:fs,fontWeight:600,transition:"all 0.2s",backdropFilter:"blur(8px)"}}>Вперёд →</button>
+        style={{background:cur===total-1?"rgba(255,255,255,0.08)":"rgba(255,255,255,0.15)",border:`1.5px solid ${cur===total-1?"rgba(255,255,255,0.1)":"rgba(255,255,255,0.3)"}`,borderRadius:10,padding:pad,cursor:cur===total-1?"default":"pointer",color:cur===total-1?"rgba(255,255,255,0.3)":"rgba(255,255,255,0.9)",fontFamily:"'Manrope', sans-serif",fontSize:fs,fontWeight:600,transition:"all 0.2s",backdropFilter:"blur(8px)"}}>Вперёд →</button>
     </div>
   );
 }
@@ -541,10 +544,10 @@ function PresentationModal({ week, startSlide, onClose }) {
       >
         <div>
           <div style={{fontSize:"0.68rem",letterSpacing:2,textTransform:"uppercase",color:"rgba(255,255,255,0.45)",fontWeight:700,marginBottom:4}}>Неделя {week.week}</div>
-          <div style={{fontFamily:"'Playfair Display',serif",fontSize:"clamp(0.85rem,2vw,1.1rem)",color:"rgba(255,255,255,0.85)",fontWeight:600}}>{week.title}</div>
+          <div style={{fontFamily:"'Montserrat', sans-serif",fontSize:"clamp(0.85rem,2vw,1.1rem)",color:"rgba(255,255,255,0.85)",fontWeight:600}}>{week.title}</div>
         </div>
         <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <span style={{fontSize:"0.78rem",color:"rgba(255,255,255,0.4)",fontFamily:"'Mulish',sans-serif"}}>
+          <span style={{fontSize:"0.78rem",color:"rgba(255,255,255,0.4)",fontFamily:"'Manrope', sans-serif"}}>
             {cur + 1} / {total}
           </span>
           <button
@@ -620,7 +623,7 @@ function DownloadButton({ week }) {
           background: loading ? "#f0f0ec" : `linear-gradient(135deg,${week.accent},${week.accentLight ? week.accent+"cc" : week.accent})`,
           color: loading ? "#aaa" : "#fff",
           border:"none",borderRadius:11,padding:"10px 20px",
-          fontFamily:"'Mulish',sans-serif",fontSize:"0.83rem",fontWeight:700,
+          fontFamily:"'Manrope', sans-serif",fontSize:"0.83rem",fontWeight:700,
           cursor: loading ? "default" : "pointer",
           boxShadow: loading ? "none" : `0 4px 20px ${week.accent}44`,
           transition:"all 0.22s",
@@ -671,7 +674,7 @@ function DownloadButton({ week }) {
             >
               <span style={{fontSize:"1.3rem"}}>{icon}</span>
               <div>
-                <div style={{fontSize:"0.85rem",fontWeight:600,color:"#1a3220",fontFamily:"'Mulish',sans-serif"}}>{label}</div>
+                <div style={{fontSize:"0.85rem",fontWeight:600,color:"#1a3220",fontFamily:"'Manrope', sans-serif"}}>{label}</div>
                 <div style={{fontSize:"0.7rem",color:"#7a8a70",marginTop:1}}>{sub}</div>
               </div>
             </button>
@@ -714,7 +717,7 @@ function PresentationViewer({ week }) {
           <div style={{position:"absolute",bottom:13,right:15,fontSize:"0.67rem",color:"rgba(255,255,255,0.55)",background:"rgba(0,0,0,0.28)",borderRadius:7,padding:"3px 9px",backdropFilter:"blur(4px)"}}>{cur+1} / {total}</div>
 
           {/* Кнопка на весь экран */}
-          <div style={{position:"absolute",top:13,right:13,background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",borderRadius:10,padding:"7px 13px",display:"flex",alignItems:"center",gap:7,color:"rgba(255,255,255,0.85)",fontSize:"0.75rem",fontWeight:600,fontFamily:"'Mulish',sans-serif",border:"1px solid rgba(255,255,255,0.15)",transition:"background 0.2s"}}
+          <div style={{position:"absolute",top:13,right:13,background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",borderRadius:10,padding:"7px 13px",display:"flex",alignItems:"center",gap:7,color:"rgba(255,255,255,0.85)",fontSize:"0.75rem",fontWeight:600,fontFamily:"'Manrope', sans-serif",border:"1px solid rgba(255,255,255,0.15)",transition:"background 0.2s"}}
             onMouseEnter={e=>e.currentTarget.style.background="rgba(0,0,0,0.55)"}
             onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.35)"}
           >
@@ -734,7 +737,7 @@ function PresentationViewer({ week }) {
         {/* Навигация под слайдом */}
         <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginTop:14,gap:12}}>
           <button onClick={e=>{e.stopPropagation();setCur(c=>Math.max(0,c-1));}} disabled={cur===0}
-            style={{background:cur===0?"#f0f0ec":"#fff",border:`1.5px solid ${week.accent}30`,borderRadius:10,padding:"8px 20px",cursor:cur===0?"default":"pointer",color:cur===0?"#ccc":week.accent,fontFamily:"'Mulish',sans-serif",fontSize:"0.82rem",fontWeight:600,transition:"all 0.2s",boxShadow:cur===0?"none":"0 2px 10px rgba(0,0,0,0.06)"}}>← Назад</button>
+            style={{background:cur===0?"#f0f0ec":"#fff",border:`1.5px solid ${week.accent}30`,borderRadius:10,padding:"8px 20px",cursor:cur===0?"default":"pointer",color:cur===0?"#ccc":week.accent,fontFamily:"'Manrope', sans-serif",fontSize:"0.82rem",fontWeight:600,transition:"all 0.2s",boxShadow:cur===0?"none":"0 2px 10px rgba(0,0,0,0.06)"}}>← Назад</button>
           <div style={{display:"flex",gap:6,flex:1,justifyContent:"center"}}>
             {week.slides.map((_,i)=>(
               <button key={i} onClick={e=>{e.stopPropagation();setCur(i);}}
@@ -742,7 +745,7 @@ function PresentationViewer({ week }) {
             ))}
           </div>
           <button onClick={e=>{e.stopPropagation();setCur(c=>Math.min(total-1,c+1));}} disabled={cur===total-1}
-            style={{background:cur===total-1?"#f0f0ec":"#fff",border:`1.5px solid ${week.accent}30`,borderRadius:10,padding:"8px 20px",cursor:cur===total-1?"default":"pointer",color:cur===total-1?"#ccc":week.accent,fontFamily:"'Mulish',sans-serif",fontSize:"0.82rem",fontWeight:600,transition:"all 0.2s",boxShadow:cur===total-1?"none":"0 2px 10px rgba(0,0,0,0.06)"}}>Вперёд →</button>
+            style={{background:cur===total-1?"#f0f0ec":"#fff",border:`1.5px solid ${week.accent}30`,borderRadius:10,padding:"8px 20px",cursor:cur===total-1?"default":"pointer",color:cur===total-1?"#ccc":week.accent,fontFamily:"'Manrope', sans-serif",fontSize:"0.82rem",fontWeight:600,transition:"all 0.2s",boxShadow:cur===total-1?"none":"0 2px 10px rgba(0,0,0,0.06)"}}>Вперёд →</button>
         </div>
 
         {/* Подсказка */}
@@ -786,7 +789,7 @@ function WipBlock({ week }) {
   return (
     <div style={{background:"linear-gradient(135deg,#f4f8f0,#ecf4e6)",borderRadius:16,padding:"36px 32px",textAlign:"center",border:"2px dashed rgba(61,107,82,0.16)"}}>
       <div style={{fontSize:"2.2rem",marginBottom:12}}>🛠️</div>
-      <div style={{fontFamily:"'Playfair Display',serif",fontSize:"1.2rem",color:"#3d6b52",fontWeight:600,marginBottom:8}}>Презентация в разработке</div>
+      <div style={{fontFamily:"'Montserrat', sans-serif",fontSize:"1.2rem",color:"#3d6b52",fontWeight:600,marginBottom:8}}>Презентация в разработке</div>
       <p style={{fontSize:"0.82rem",color:"#6a8a60",lineHeight:1.72,fontWeight:300,maxWidth:420,margin:"0 auto"}}>
         Материалы кейса {week.week} появятся после защиты.<br/>
         Для добавления заполните{" "}
@@ -817,7 +820,7 @@ function MemberAvatar({ member, size = 54, fontSize = "1.1rem" }) {
       {photoSrc && !err
         ? <img src={photoSrc} alt={member.name} onError={()=>setErr(true)}
             style={{width:"100%",height:"100%",objectFit:"cover"}}/>
-        : <div style={{width:"100%",height:"100%",background:bg,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Playfair Display',serif",fontSize,fontWeight:700,color:"#fff"}}>{member.initials}</div>
+        : <div style={{width:"100%",height:"100%",background:bg,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Montserrat', sans-serif",fontSize,fontWeight:700,color:"#fff"}}>{member.initials}</div>
       }
     </div>
   );
@@ -911,12 +914,17 @@ export default function SVEZASite() {
   const members = MEMBERS;
   const [activeWeek, setActiveWeek] = useState(null);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [vis, setVis] = useState({});
 
   useEffect(() => { document.title = "Свеза. Кейс чемпионат"; }, []);
 
   useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 56);
+    const h = () => {
+      setScrolled(window.scrollY > 56);
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress(docH > 0 ? (window.scrollY / docH) * 100 : 0);
+    };
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
@@ -932,159 +940,14 @@ export default function SVEZASite() {
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Mulish:wght@300;400;500;600;700&display=swap');
-        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-        html,body{width:100%;min-height:100%;scroll-behavior:smooth;}
-        body{font-family:'Mulish',sans-serif;background:#f7faf4;color:#2a2a1e;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-        #root{width:100%;min-height:100vh;}
-
-        /* ── NAV ── */
-        .nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;gap:18px;transition:all 0.35s ease;}
-        .nav.sc{background:rgba(255,255,255,0.97);backdrop-filter:blur(16px);box-shadow:0 1px 20px rgba(40,80,50,0.08);padding:11px 48px;}
-        .nlogo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:#2d5a3a;text-decoration:none;display:flex;align-items:baseline;gap:2px;}
-        .nlogo em{color:#6b9e6b;font-style:normal;}
-        .nlinks{display:flex;gap:26px;list-style:none;}
-        .nlinks a{text-decoration:none;color:#4a5a40;font-size:0.84rem;font-weight:500;transition:color 0.2s;letter-spacing:0.2px;}
-        .nlinks a:hover{color:#3d6b52;}
-        .ubadge{display:flex;align-items:center;gap:8px;background:rgba(61,107,82,0.09);border:1px solid rgba(61,107,82,0.17);border-radius:11px;padding:6px 13px;}
-        .uico{width:28px;height:28px;background:linear-gradient(135deg,#2d5a3a,#6b9e6b);border-radius:7px;display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:0.58rem;text-align:center;line-height:1.3;font-family:'Playfair Display',serif;flex-shrink:0;}
-        .utxt{font-size:0.65rem;color:#3d6b52;font-weight:600;line-height:1.4;}
-
-        /* ── HERO ── */
-        .hero{min-height:100vh;background:linear-gradient(155deg,#f4f9f0 0%,#e6f2da 40%,#d5e8cc 100%);display:flex;align-items:center;padding:100px 48px 64px;position:relative;overflow:hidden;}
-        .hd1{position:absolute;right:-100px;top:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(61,107,82,0.07) 0%,transparent 70%);pointer-events:none;}
-        .hd2{position:absolute;left:38%;bottom:-100px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(107,158,107,0.07) 0%,transparent 70%);pointer-events:none;}
-        .hcontent{position:relative;z-index:2;max-width:700px;}
-        /* Студенческий тег */
-        .stud-tag{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.7);border:1px solid rgba(61,107,82,0.2);border-radius:14px;padding:9px 16px;margin-bottom:28px;backdrop-filter:blur(6px);}
-        .stud-tag-uni{font-size:0.72rem;color:#3d6b52;font-weight:700;line-height:1.4;}
-        .stud-tag-uni span{font-weight:300;color:#6a8a60;display:block;}
-        .hh1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.1;color:#1a3220;font-weight:700;margin-bottom:20px;}
-        .hh1 em{color:#4a7c59;font-style:normal;}
-        .hsub{font-size:1rem;line-height:1.85;color:#4d5e43;font-weight:300;max-width:540px;margin-bottom:36px;}
-        .hsub strong{font-weight:600;color:#2d5a3a;}
-        /* Кнопки-ссылки */
-        .hbtns{display:flex;gap:12px;flex-wrap:wrap;}
-        .hbtn{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:11px 22px;font-family:'Mulish',sans-serif;font-size:0.84rem;font-weight:600;cursor:pointer;transition:all 0.22s;text-decoration:none;}
-        .hbtn-primary{background:#3d6b52;color:#fff;border:1.5px solid #3d6b52;box-shadow:0 4px 20px rgba(61,107,82,0.25);}
-        .hbtn-primary:hover{background:#2d5a3a;box-shadow:0 6px 28px rgba(61,107,82,0.32);transform:translateY(-1px);}
-        .hbtn-ghost{background:rgba(255,255,255,0.7);color:#3d6b52;border:1.5px solid rgba(61,107,82,0.25);backdrop-filter:blur(6px);}
-        .hbtn-ghost:hover{background:rgba(255,255,255,0.9);transform:translateY(-1px);}
-        /* Правая панель */
-        .hright{position:absolute;right:0;top:0;bottom:0;width:40%;background:linear-gradient(135deg,#b4d89c,#7aab68 50%,#4a7c59);clip-path:polygon(16% 0,100% 0,100% 100%,0% 100%);overflow:hidden;}
-        .hwd{position:absolute;inset:0;opacity:0.22;background:repeating-linear-gradient(82deg,transparent,transparent 22px,rgba(80,50,20,0.1) 22px,rgba(80,50,20,0.1) 23px);}
-        .htxt{position:absolute;top:50%;left:50%;transform:translate(-32%,-50%);font-family:'Playfair Display',serif;font-size:clamp(4rem,9vw,10rem);font-weight:700;color:rgba(255,255,255,0.11);user-select:none;white-space:nowrap;letter-spacing:-5px;}
-        .hcard{position:absolute;bottom:56px;left:26%;transform:translateX(-50%);background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);border-radius:16px;padding:13px 19px;box-shadow:0 8px 36px rgba(40,80,50,0.14);}
-        .hcl{font-size:0.61rem;text-transform:uppercase;letter-spacing:1.2px;color:#7a9a70;font-weight:700;}
-        .hcv{font-family:'Playfair Display',serif;font-size:1.4rem;color:#2d5a3a;font-weight:700;margin-top:1px;}
-
-        /* ── SECTION ── */
-        .sec{padding:84px 48px;}
-        .stag{font-size:0.68rem;letter-spacing:2.5px;text-transform:uppercase;color:#5a9a6a;font-weight:700;margin-bottom:10px;}
-        .sh2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);color:#1a3220;font-weight:700;line-height:1.2;margin-bottom:12px;}
-        .sdesc{font-size:0.95rem;color:#607060;line-height:1.85;font-weight:300;}
-        .center{text-align:center;max-width:540px;margin:0 auto;}
-
-        /* ── TEAM ── */
-        .tgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;max-width:1060px;margin:44px auto 0;}
-        .mcard{width:calc(33.333% - 10px);min-width:220px;max-width:320px;flex-grow:0;flex-shrink:0;}
-        .mcard{background:#fff;border-radius:20px;padding:22px 18px;border:1px solid rgba(61,107,82,0.1);display:flex;align-items:center;gap:15px;transition:transform 0.25s,box-shadow 0.25s;box-shadow:0 2px 12px rgba(40,80,50,0.05);}
-        .mcard:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(40,80,50,0.11);}
-        .mavatar{width:54px;height:54px;flex-shrink:0;position:relative;cursor:pointer;border-radius:50%;}
-        .moverlay{position:absolute;inset:0;border-radius:50%;background:rgba(0,0,0,0.38);display:flex;align-items:center;justify-content:center;font-size:1rem;opacity:0;transition:opacity 0.2s;}
-        .mavatar:hover .moverlay{opacity:1;}
-        .mname{font-size:0.91rem;font-weight:600;color:#1a3220;margin-bottom:2px;}
-        .mrole{font-size:0.73rem;color:#7a8a70;}
-        .uphint{font-size:0.69rem;color:#9aaa90;margin-top:10px;text-align:center;}
-        .gbadge{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#eef5e8,#e3f0da);border:1px solid rgba(61,107,82,0.16);border-radius:13px;padding:10px 17px;margin-top:16px;}
-        .gnum{font-family:'Playfair Display',serif;font-size:1.9rem;color:#2d5a3a;font-weight:700;line-height:1;}
-        .ginfo{font-size:0.71rem;color:#5a7a50;line-height:1.55;}
-        .ginfo strong{font-weight:700;color:#3d6b52;display:block;}
-
-        /* ── ACCORDION ── */
-        .awrap{max-width:880px;margin:50px auto 0;display:flex;flex-direction:column;gap:13px;}
-        .aitem{background:#fff;border-radius:20px;border:1px solid rgba(61,107,82,0.1);overflow:hidden;box-shadow:0 2px 12px rgba(40,80,50,0.04);transition:box-shadow 0.3s;}
-        .aitem.open{box-shadow:0 8px 48px rgba(40,80,50,0.12);}
-        .abtn{width:100%;background:none;border:none;cursor:pointer;padding:22px 26px;display:flex;align-items:center;gap:15px;text-align:left;transition:background 0.2s;outline:none;}
-        .abtn:hover{background:rgba(61,107,82,0.025);}
-        .abtn:focus{outline:none;}
-        .abadge{width:50px;height:50px;border-radius:13px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;}
-        .abl{font-size:0.5rem;text-transform:uppercase;letter-spacing:1px;opacity:0.8;}
-        .abn{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;line-height:1;}
-        .atitles{flex:1;min-width:0;}
-        .amain{font-family:'Playfair Display',serif;font-size:1.08rem;color:#1a3220;font-weight:600;margin-bottom:2px;}
-        .asub{font-size:0.77rem;color:#7a8a70;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-        .atag{font-size:0.64rem;padding:3px 10px;border-radius:100px;font-weight:600;letter-spacing:0.4px;flex-shrink:0;}
-        .astat{font-size:0.64rem;padding:3px 10px;border-radius:100px;font-weight:600;flex-shrink:0;}
-        .aarrow{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(61,107,82,0.08);transition:transform 0.3s,background 0.2s;font-size:0.6rem;color:#4a7c59;flex-shrink:0;}
-        .aitem.open .aarrow{transform:rotate(180deg);background:rgba(61,107,82,0.15);}
-        .abody{overflow:hidden;max-height:0;transition:max-height 0.55s cubic-bezier(0.4,0,0.2,1);}
-        .abody.open{max-height:1400px;}
-        .abin{padding:0 26px 26px;border-top:1px solid rgba(61,107,82,0.07);padding-top:24px;}
-
-        /* ── FOOTER ── */
-        .footer{background:#1a3220;padding:48px 48px;}
-        .fin{max-width:1060px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;}
-        .flogo{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:#fff;margin-bottom:6px;}
-        .flogo em{color:#8ab870;font-style:normal;}
-        .fdesc{font-size:0.78rem;color:rgba(255,255,255,0.46);line-height:1.72;max-width:290px;}
-        .fright{text-align:right;font-size:0.74rem;color:rgba(255,255,255,0.42);}
-        .fq{font-family:'Playfair Display',serif;font-style:italic;font-size:0.94rem;color:rgba(255,255,255,0.3);margin-bottom:8px;}
-
-        /* ── FADE IN ── */
-        .fi{opacity:0;transform:translateY(18px);transition:opacity 0.6s ease,transform 0.6s ease;}
-        .fi.v{opacity:1;transform:none;}
-        .d1{transition-delay:.08s;}.d2{transition-delay:.18s;}.d3{transition-delay:.28s;}
-        .d4{transition-delay:.38s;}.d5{transition-delay:.48s;}.d6{transition-delay:.58s;}
-
-        .mcard-victor{background:linear-gradient(135deg,#f6fdf4,#edf8e5);border-color:rgba(61,107,82,0.25);}
-
-        /* ── CHAT BUBBLE ── */
-        .chat-fab{position:fixed;bottom:24px;right:24px;z-index:500;}
-        .chat-btn{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#2d5a3a,#5a9a6a);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 22px rgba(40,80,50,0.38);transition:transform 0.2s,box-shadow 0.2s;position:relative;}
-        .chat-btn:hover{transform:scale(1.08);box-shadow:0 7px 30px rgba(40,80,50,0.48);}
-        .chat-badge{position:absolute;top:-3px;right:-3px;width:19px;height:19px;background:#e05a4a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.58rem;color:#fff;font-weight:700;border:2px solid #fff;}
-        .chat-win{position:absolute;bottom:68px;right:0;width:320px;background:#fff;border-radius:22px;box-shadow:0 14px 52px rgba(30,60,40,0.2);overflow:hidden;border:1px solid rgba(61,107,82,0.11);animation:chatPop 0.22s cubic-bezier(0.34,1.56,0.64,1);}
-        @keyframes chatPop{from{opacity:0;transform:scale(0.88) translateY(12px);}to{opacity:1;transform:none;}}
-        .chat-hd{background:linear-gradient(135deg,#1e3a28,#3d6b52);padding:15px 18px;display:flex;align-items:center;justify-content:space-between;}
-        .chat-hd-t{font-family:'Playfair Display',serif;font-size:1rem;color:#fff;font-weight:600;}
-        .chat-hd-s{font-size:0.67rem;color:rgba(255,255,255,0.52);margin-top:2px;}
-        .chat-x{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.14);border:none;cursor:pointer;color:rgba(255,255,255,0.75);font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s;}
-        .chat-x:hover{background:rgba(255,255,255,0.25);}
-        .chat-list{max-height:360px;overflow-y:auto;}
-        .chat-row{padding:11px 15px;display:flex;align-items:center;gap:11px;cursor:pointer;transition:background 0.15s;border-bottom:1px solid rgba(61,107,82,0.06);}
-        .chat-row:hover{background:#f4faf1;}
-        .chat-row-info{flex:1;min-width:0;}
-        .chat-row-name{font-size:0.85rem;font-weight:600;color:#1a3220;margin-bottom:2px;}
-        .chat-row-prev{font-size:0.74rem;color:#7a8a70;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-        .chat-row-time{font-size:0.64rem;color:#aaa;flex-shrink:0;}
-        .chat-conv-hd{padding:11px 15px;display:flex;align-items:center;gap:9px;background:#f5faf3;border-bottom:1px solid rgba(61,107,82,0.08);}
-        .chat-back{background:none;border:none;cursor:pointer;color:#4a7c59;font-size:1.1rem;line-height:1;padding:0;}
-        .chat-conv-name{font-size:0.88rem;font-weight:600;color:#1a3220;}
-        .chat-msgs{padding:13px;display:flex;flex-direction:column;gap:7px;max-height:248px;overflow-y:auto;background:#f0f7ed;}
-        .chat-msg{max-width:82%;padding:9px 13px;border-radius:14px;font-size:0.81rem;line-height:1.55;align-self:flex-start;background:#fff;color:#1a3220;border-radius:4px 14px 14px 14px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-        .chat-time{font-size:0.6rem;color:#bbb;margin-top:2px;padding-left:3px;}
-        @media(max-width:480px){.chat-win{width:calc(100vw - 28px);right:-4px;}}
-
-        @media(max-width:768px){
-          .hero{padding:106px 20px 56px;}.hright,.hcard{display:none;}
-          .sec{padding:52px 20px;}.nav{padding:13px 20px;}.nav.sc{padding:9px 20px;}
-          .nlinks{display:none;}.fin{flex-direction:column;}.fright{text-align:left;}
-          .awrap{margin-top:32px;}.tgrid{gap:10px;}
-          .hbtns{flex-direction:column;align-items:flex-start;}
-          .mcard{width:100%;max-width:100%;min-width:unset;}
-          .ubadge{display:none;}
-          .atag{display:none;}
-          .abtn{padding:16px 14px;gap:10px;}
-          .abody.open{max-height:2400px;}
-          .abin{padding:0 14px 20px;padding-top:18px;}
-        }
-      `}</style>
+      
 
       {/* ── NAV ── */}
       <nav className={`nav ${scrolled ? "sc" : ""}`}>
-        <a className="nlogo" href="#">СВЕ<em>ЗА</em></a>
+        <div className="scroll-prog" style={{width: `${scrollProgress}%`}}/>
+        <a className="nlogo" href="#">
+ <img src="/sveza/sveza.png" alt="СВЕЗА" style={{height:"60px",width:"auto",display:"block"}}/>
+</a>
         <ul className="nlinks">
           <li><a href="#team">Команда</a></li>
           <li><a href="#cases">Кейсы</a></li>
@@ -1095,45 +958,86 @@ export default function SVEZASite() {
         </div>
       </nav>
 
-      {/* ── HERO ── */}
+      {/* ── HERO — Split Screen ── */}
       <section className="hero">
-        <div className="hd1"/><div className="hd2"/>
-        <div className="hcontent">
 
-          {/* Студенческий бейдж */}
-          <div className="stud-tag">
-            <div style={{width:32,height:32,background:"linear-gradient(135deg,#2d5a3a,#6b9e6b)",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                <path d="M12 3L2 9l10 6 10-6-10-6zM2 15l10 6 10-6M2 12l10 6 10-6" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
-              </svg>
+        {/* ─── Левая часть: белая, с бумажной текстурой ─── */}
+        <div className="hleft">
+          <div className="hl-noise" aria-hidden="true"/>
+          <div className="hl-decoline" aria-hidden="true"/>
+          <div className="hl-content">
+            <div className="stud-tag">
+              <div style={{width:32,height:32,background:"linear-gradient(135deg,#1a3220,#3d6b52)",borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                  <path d="M12 3L2 9l10 6 10-6-10-6zM2 15l10 6 10-6M2 12l10 6 10-6" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="stud-tag-uni">
+                221 группа · СПБГУПТД ВШТЭ
+                <span>Учебный проект · Кейс-анализ</span>
+              </div>
             </div>
-            <div className="stud-tag-uni">
-              221 группа · СПБГУПТД ВШТЭ
-              <span>Учебный проект · Кейс-анализ</span>
-            </div>
-          </div>
 
-          <h1 className="hh1">
-            Разбираем кейсы<br/>
-            <em>СВЕЗА</em> —<br/>
-            мирового лидера фанеры
-          </h1>
-          <p className="hsub">
-            Четыре недели мы анализируем реальные управленческие задачи компании{" "}
-            <strong>СВЕЗА</strong> — крупнейшего производителя берёзовой фанеры в мире.
-            Каждую неделю — новый кейс, новая презентация, новые выводы.
-          </p>
-          <div className="hbtns">
-            <a className="hbtn hbtn-primary" href="#cases">Смотреть кейсы →</a>
-            <a className="hbtn hbtn-ghost" href="#team">Команда Непризнанные гении</a>
+            <h1 className="hh1">
+               Кейс-чемпионат<br/>
+              <em>СВЕЗА</em> 
+            </h1>
+            <p className="hsub">
+              Четыре недели мы анализируем реальные управленческие задачи компании{" "}
+              <strong>СВЕЗА</strong> — крупнейшего производителя берёзовой фанеры в мире.
+              Каждую неделю — новый кейс, новая презентация, новые выводы.
+            </p>
+            <div className="hbtns">
+              <a className="hbtn hbtn-primary" href="#cases">Смотреть кейсы →</a>
+              <a className="hbtn hbtn-ghost" href="#team">Команда · Непризнанные гении</a>
+            </div>
           </div>
         </div>
 
+        {/* ─── Правая часть: тёмно-зелёная, парящие логотипы ─── */}
         <div className="hright">
-          <div className="hwd"/>
-          <WoodRings style={{position:"absolute",right:-60,top:-60,width:280,height:280,color:"rgba(255,255,255,0.07)"}}/>
-          <div className="htxt">СВЕЗА</div>
-        </div>
+  <div className="hr-rings" aria-hidden="true">
+    <WoodRings style={{width:"100%",height:"100%",color:"rgba(255,255,255,0.04)"}}/>
+  </div>
+  <div className="glow-blob"/>
+    <div className="glow-blob"/>
+    <div className="hr-spinner" aria-hidden="true">
+  <svg viewBox="0 0 400 400" width="100%" height="100%">
+    {[40,70,100,130,160,190,220].map((r,i) => (
+      <polygon key={i}
+        points={Array.from({length:6},(_,k)=>{
+          const a = (k*60 - 90) * Math.PI/180;
+          return `${200+r*Math.cos(a)},${200+r*Math.sin(a)}`;
+        }).join(' ')}
+        fill="none"
+        stroke="rgba(141,198,110,0.07)"
+        strokeWidth="1.2"
+      />
+    ))}
+    {[55,110,165].map((r,i) => (
+      <polygon key={`d${i}`}
+        points={Array.from({length:3},(_,k)=>{
+          const a = (k*120 - 90) * Math.PI/180;
+          return `${200+r*Math.cos(a)},${200+r*Math.sin(a)}`;
+        }).join(' ')}
+        fill="none"
+        stroke="rgba(90,154,90,0.05)"
+        strokeWidth="0.8"
+      />
+    ))}
+  </svg>
+</div>
+          <img
+            src="/sveza/vshte.png"
+            alt="ВШТЭ"
+            className="company-logo logo-vshte"
+          />
+
+  <div className="logo-sveza">
+    <img src="/sveza/sveza-short.png" alt="СВЕЗА" className="logo-sveza-img"/>
+    <span className="logo-sveza-label">СВЕЗА</span>
+  </div>
+</div>
       </section>
 
       {/* ══ КОМАНДА ══ */}
@@ -1151,12 +1055,24 @@ export default function SVEZASite() {
           </div>
         </div>
         <div className="tgrid">
-          {members.map((m, i) => (
-            <div key={m.id} id={`m${m.id}`} data-obs className={`fi d${(i % 6) + 1} ${vis[`m${m.id}`] ? "v" : ""}`}>
-              <MemberCard member={m}/>
-            </div>
-          ))}
-        </div>
+  {members.filter(m => !m.isVictor).map((m, i) => (
+    <div key={m.id} id={`m${m.id}`} data-obs className={`fi d${(i % 5) + 1} ${vis[`m${m.id}`] ? "v" : ""}`}>
+      <MemberCard member={m}/>
+    </div>
+  ))}
+</div>
+
+<div className="curator-divider">
+  <span>Куратор команды</span>
+</div>
+
+<div className="tgrid-curator">
+  {members.filter(m => m.isVictor).map((m) => (
+    <div key={m.id} id={`m${m.id}`} data-obs className={`fi d1 ${vis[`m${m.id}`] ? "v" : ""}`}>
+      <MemberCard member={m}/>
+    </div>
+  ))}
+</div>
       </section>
 
       {/* ══ КЕЙСЫ ══ */}
@@ -1173,7 +1089,7 @@ export default function SVEZASite() {
         <div className="awrap">
           {WEEKS.map((w, wi) => (
             <div key={wi} id={`acc${wi}`} data-obs className={`aitem fi d${wi+1} ${vis[`acc${wi}`]?"v":""} ${activeWeek === wi ? "open" : ""}`}>
-              <button className="abtn" onClick={() => setActiveWeek(activeWeek === wi ? null : wi)}>
+              <button className="abtn" data-num={String(wi + 1).padStart(2, '0')} onClick={() => setActiveWeek(activeWeek === wi ? null : wi)}>
                 <div className="abadge" style={{background:`linear-gradient(135deg,${w.accent},${w.accentLight})`}}>
                   <span className="abl">неделя</span>
                   <span className="abn">{w.week}</span>
