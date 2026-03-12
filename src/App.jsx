@@ -1170,11 +1170,14 @@ export default function SVEZASite() {
     ))}
   </svg>
 </div>
-          <img
-            src="/sveza/vshte.png"
-            alt="ВШТЭ"
-            className="company-logo logo-vshte"
-          />
+          <div className="company-logo logo-vshte-wrap">
+            <img
+              src="/sveza/vshte.png"
+              alt="ВШТЭ"
+              className="logo-vshte"
+            />
+            <span className="logo-vshte-text">ВЫСШАЯ ШКОЛА<br/>ТЕХНОЛОГИЙ И ЭНЕРГЕТИКИ</span>
+          </div>
 
   <div className="logo-sveza">
     <img src="/sveza/sveza-short.png" alt="СВЕЗА" className="logo-sveza-img"/>

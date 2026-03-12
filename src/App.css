@@ -517,12 +517,28 @@ body::after {
   object-fit: contain;
 }
 
-.logo-vshte {
+.logo-vshte-wrap {
   width: 42%; max-width: 300px;
   top: 15%; right: 30%;
   animation: floatA 7s ease-in-out infinite;
-  /* Logo visible on dark green */
   filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5)) brightness(1.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.logo-vshte {
+  width: 100%;
+}
+.logo-vshte-text {
+  display: none;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1.4;
 }
 
 .logo-sveza {
@@ -1266,14 +1282,22 @@ body::after {
   .hright { min-height: 300px; height: 300px; }
 
 
+.logo-vshte-wrap {
+  width: auto;
+  max-width: none;
+  top: 50%;
+  right: 6%;
+  left: auto;
+  transform: translateY(-50%);
+  animation: none;
+}
 .logo-vshte {
-  width: 40%;
-  max-width: 140px;
-  top: 8%;
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
-  animation: floatA 7s ease-in-out infinite;
+  width: 70px;
+}
+.logo-vshte-text {
+  display: block;
+  max-width: 88px;
+  font-size: 0.5rem;
 }
 
 .logo-sveza-img {
@@ -1287,7 +1311,11 @@ body::after {
 
 /* Подвинуть SVEZA-блок вниз, чтобы не перекрывал ВШТЭ */
 .logo-sveza {
-  bottom: 8%;
+  left: 28%;
+  top: 50%;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  animation: none;
 }
 
   /* shrink the glow blob so it doesn't feel too heavy on small screens */
@@ -1324,13 +1352,19 @@ body::after {
   /* Extra-small ВШТЭ block */
   .hright { min-height: 240px; height: 240px; }
 
-  .logo-vshte {
-  width: 36%;
-  max-width: 120px;
-  top: 6%;
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
+.logo-vshte-wrap {
+  right: 5%;
+  transform: translateY(-50%);
+}
+.logo-vshte {
+  width: 58px;
+}
+.logo-vshte-text {
+  font-size: 0.45rem;
+  max-width: 75px;
+}
+.logo-sveza {
+  left: 26%;
 }
 
 .logo-sveza-img {
