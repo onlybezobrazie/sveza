@@ -707,6 +707,26 @@ function PresentationModal({ week, startSlide, onClose }) {
         style={{width:"100%",maxWidth:1200,borderRadius:20,overflow:"hidden",boxShadow:"0 24px 80px rgba(0,0,0,0.5)",aspectRatio:"16/9",background:"#1a2e1e",animation:"slideUpModal 0.35s ease",flexShrink:0,position:"relative"}}
       >
         {renderSlide(week.slides[cur])}
+
+        {/* Стрелка НАЗАД — поверх слайда */}
+        {cur > 0 && (
+          <button
+            onClick={e=>{e.stopPropagation();setCur(c=>c-1);}}
+            style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",width:44,height:44,borderRadius:"50%",background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",border:"1.5px solid rgba(255,255,255,0.25)",color:"rgba(255,255,255,0.9)",fontSize:"1.2rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:10,transition:"background 0.2s"}}
+            onMouseEnter={e=>e.currentTarget.style.background="rgba(0,0,0,0.6)"}
+            onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.35)"}
+          >‹</button>
+        )}
+
+        {/* Стрелка ВПЕРЁД — поверх слайда */}
+        {cur < total - 1 && (
+          <button
+            onClick={e=>{e.stopPropagation();setCur(c=>c+1);}}
+            style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",width:44,height:44,borderRadius:"50%",background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",border:"1.5px solid rgba(255,255,255,0.25)",color:"rgba(255,255,255,0.9)",fontSize:"1.2rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:10,transition:"background 0.2s"}}
+            onMouseEnter={e=>e.currentTarget.style.background="rgba(0,0,0,0.6)"}
+            onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.35)"}
+          >›</button>
+        )}
       </div>
 
       {/* Навигация */}
@@ -852,8 +872,7 @@ function PresentationViewer({ week }) {
         <PresentationModal week={week} startSlide={cur} onClose={() => setModalOpen(false)} />
       )}
       <div>
-        {/* Слайд с кнопкой открытия */}
-        <div style={{position:"relative",borderRadius:18,overflow:"hidden",boxShadow:"0 8px 48px rgba(30,60,40,0.16)",aspectRatio:"16/9",background:"#e8ede4",cursor:"pointer",group:"true"}}
+        <div style={{position:"relative",borderRadius:18,overflow:"hidden",boxShadow:"0 8px 48px rgba(30,60,40,0.16)",aspectRatio:"16/9",background:"#e8ede4",cursor:"pointer",width:"100%",maxWidth:"100%",boxSizing:"border-box"}}
           onClick={() => setModalOpen(true)}
         >
           {renderSlide(slide)}
@@ -880,17 +899,17 @@ function PresentationViewer({ week }) {
         </div>
 
         {/* Навигация под слайдом */}
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginTop:14,gap:12}}>
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginTop:14,gap:8,flexWrap:"nowrap",minWidth:0}}>
           <button onClick={e=>{e.stopPropagation();setCur(c=>Math.max(0,c-1));}} disabled={cur===0}
-            style={{background:cur===0?"#f0f0ec":"#fff",border:`1.5px solid ${week.accent}30`,borderRadius:10,padding:"8px 20px",cursor:cur===0?"default":"pointer",color:cur===0?"#ccc":week.accent,fontFamily:"'Manrope', sans-serif",fontSize:"0.82rem",fontWeight:600,transition:"all 0.2s",boxShadow:cur===0?"none":"0 2px 10px rgba(0,0,0,0.06)"}}>← Назад</button>
-          <div style={{display:"flex",gap:6,flex:1,justifyContent:"center"}}>
+            style={{background:cur===0?"#f0f0ec":"#fff",border:`1.5px solid ${week.accent}30`,borderRadius:10,padding:"8px 14px",cursor:cur===0?"default":"pointer",color:cur===0?"#ccc":week.accent,fontFamily:"'Manrope', sans-serif",fontSize:"0.82rem",fontWeight:600,transition:"all 0.2s",flexShrink:0,boxShadow:cur===0?"none":"0 2px 10px rgba(0,0,0,0.06)"}}>←</button>
+          <div style={{display:"flex",gap:5,flex:1,justifyContent:"center",minWidth:0,overflow:"hidden",flexWrap:"wrap"}}>
             {week.slides.map((_,i)=>(
               <button key={i} onClick={e=>{e.stopPropagation();setCur(i);}}
-                style={{width:i===cur?26:8,height:8,borderRadius:6,background:i===cur?week.accent:`${week.accent}35`,border:"none",cursor:"pointer",transition:"all 0.3s ease",flexShrink:0}}/>
+                style={{width:i===cur?22:8,height:8,borderRadius:6,background:i===cur?week.accent:`${week.accent}35`,border:"none",cursor:"pointer",transition:"all 0.3s ease",flexShrink:0}}/>
             ))}
           </div>
           <button onClick={e=>{e.stopPropagation();setCur(c=>Math.min(total-1,c+1));}} disabled={cur===total-1}
-            style={{background:cur===total-1?"#f0f0ec":"#fff",border:`1.5px solid ${week.accent}30`,borderRadius:10,padding:"8px 20px",cursor:cur===total-1?"default":"pointer",color:cur===total-1?"#ccc":week.accent,fontFamily:"'Manrope', sans-serif",fontSize:"0.82rem",fontWeight:600,transition:"all 0.2s",boxShadow:cur===total-1?"none":"0 2px 10px rgba(0,0,0,0.06)"}}>Вперёд →</button>
+            style={{background:cur===total-1?"#f0f0ec":"#fff",border:`1.5px solid ${week.accent}30`,borderRadius:10,padding:"8px 14px",cursor:cur===total-1?"default":"pointer",color:cur===total-1?"#ccc":week.accent,fontFamily:"'Manrope', sans-serif",fontSize:"0.82rem",fontWeight:600,transition:"all 0.2s",flexShrink:0,boxShadow:cur===total-1?"none":"0 2px 10px rgba(0,0,0,0.06)"}}>→</button>
         </div>
 
         {/* Подсказка */}
