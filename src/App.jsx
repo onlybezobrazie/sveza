@@ -604,6 +604,7 @@ function PresentationModal({ week, startSlide, onClose }) {
         @keyframes fadeInModal { from { opacity:0; } to { opacity:1; } }
         @keyframes slideUpModal { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
         @keyframes rotatePulse { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(90deg); } }
+        .modal-slide-wrap:hover .slide-arrow { opacity: 1 !important; }
       `}</style>
 
       {/* ── Overlay «Переверните устройство» ── */}
@@ -704,6 +705,7 @@ function PresentationModal({ week, startSlide, onClose }) {
       {/* Слайд */}
       <div
         onClick={e => e.stopPropagation()}
+        className="modal-slide-wrap"
         style={{width:"100%",maxWidth:1200,borderRadius:20,overflow:"hidden",boxShadow:"0 24px 80px rgba(0,0,0,0.5)",aspectRatio:"16/9",background:"#1a2e1e",animation:"slideUpModal 0.35s ease",flexShrink:0,position:"relative"}}
       >
         {renderSlide(week.slides[cur])}
@@ -712,7 +714,9 @@ function PresentationModal({ week, startSlide, onClose }) {
         {cur > 0 && (
           <button
             onClick={e=>{e.stopPropagation();setCur(c=>c-1);}}
-            style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",width:44,height:44,borderRadius:"50%",background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",border:"1.5px solid rgba(255,255,255,0.25)",color:"rgba(255,255,255,0.9)",fontSize:"1.2rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:10,transition:"background 0.2s"}}
+            className="slide-arrow"
+            style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",width:44,height:44,borderRadius:"50%",background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",border:"1.5px solid rgba(255,255,255,0.25)",color:"rgba(255,255,255,0.9)",fontSize:"1.2rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:10,opacity:0,transition:"background 0.2s, opacity 0.2s"}}
+
             onMouseEnter={e=>e.currentTarget.style.background="rgba(0,0,0,0.6)"}
             onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.35)"}
           >‹</button>
@@ -722,12 +726,13 @@ function PresentationModal({ week, startSlide, onClose }) {
         {cur < total - 1 && (
           <button
             onClick={e=>{e.stopPropagation();setCur(c=>c+1);}}
-            style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",width:44,height:44,borderRadius:"50%",background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",border:"1.5px solid rgba(255,255,255,0.25)",color:"rgba(255,255,255,0.9)",fontSize:"1.2rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:10,transition:"background 0.2s"}}
+            className="slide-arrow"
+            style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",width:44,height:44,borderRadius:"50%",background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",border:"1.5px solid rgba(255,255,255,0.25)",color:"rgba(255,255,255,0.9)",fontSize:"1.2rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:10,opacity:0,transition:"background 0.2s, opacity 0.2s"}}
             onMouseEnter={e=>e.currentTarget.style.background="rgba(0,0,0,0.6)"}
             onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.35)"}
           >›</button>
         )}
-      </div>
+      </div>  
 
       {/* Навигация */}
       <div
