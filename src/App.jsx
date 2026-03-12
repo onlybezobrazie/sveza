@@ -1024,8 +1024,8 @@ function ChatBubble() {
 
   const lastMsg = (chat) => chat.messages[chat.messages.length - 1].text;
 
-  return (
-    <div className="chat-fab">
+  return createPortal(
+  <div className="chat-fab">
       {open && (
         <div className="chat-win">
           {/* Шапка */}
@@ -1077,7 +1077,8 @@ function ChatBubble() {
         }
         {!open && <div className="chat-badge">{CHAT_DATA.length}</div>}
       </button>
-    </div>
+    </div>,
+    document.body
   );
 }
 
