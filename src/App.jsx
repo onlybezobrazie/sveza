@@ -605,6 +605,7 @@ function PresentationModal({ week, startSlide, onClose }) {
         @keyframes slideUpModal { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
         @keyframes rotatePulse { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(90deg); } }
         .modal-slide-wrap:hover .slide-arrow { opacity: 1 !important; }
+        @media (max-width: 900px) { .slide-arrow { display: none !important; } }
       `}</style>
 
       {/* ── Overlay «Переверните устройство» ── */}
