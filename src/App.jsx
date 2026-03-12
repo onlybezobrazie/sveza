@@ -716,7 +716,7 @@ function PresentationModal({ week, startSlide, onClose }) {
           <button
             onClick={e=>{e.stopPropagation();setCur(c=>c-1);}}
             className="slide-arrow"
-            style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",width:44,height:44,borderRadius:"50%",background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",border:"1.5px solid rgba(255,255,255,0.25)",color:"rgba(255,255,255,0.9)",fontSize:"1.2rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:10,opacity: slideHovered ? 1 : 0,,transition:"background 0.2s, opacity 0.2s"}}
+            style={{position:"absolute",left:14,top:"50%",transform:"translateY(-50%)",width:44,height:44,borderRadius:"50%",background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",border:"1.5px solid rgba(255,255,255,0.25)",color:"rgba(255,255,255,0.9)",fontSize:"1.2rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:10,opacity: slideHovered ? 1 : 0,transition:"background 0.2s, opacity 0.2s"}}
 
             onMouseEnter={e=>e.currentTarget.style.background="rgba(0,0,0,0.6)"}
             onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.35)"}
@@ -728,7 +728,7 @@ function PresentationModal({ week, startSlide, onClose }) {
           <button
             onClick={e=>{e.stopPropagation();setCur(c=>c+1);}}
             className="slide-arrow"
-            style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",width:44,height:44,borderRadius:"50%",background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",border:"1.5px solid rgba(255,255,255,0.25)",color:"rgba(255,255,255,0.9)",fontSize:"1.2rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:10,opacity: slideHovered ? 1 : 0,,transition:"background 0.2s, opacity 0.2s"}}
+            style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",width:44,height:44,borderRadius:"50%",background:"rgba(0,0,0,0.35)",backdropFilter:"blur(8px)",border:"1.5px solid rgba(255,255,255,0.25)",color:"rgba(255,255,255,0.9)",fontSize:"1.2rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:10,opacity: slideHovered ? 1 : 0,transition:"background 0.2s, opacity 0.2s"}}
             onMouseEnter={e=>e.currentTarget.style.background="rgba(0,0,0,0.6)"}
             onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0.35)"}
           >›</button>
