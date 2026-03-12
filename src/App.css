@@ -699,37 +699,57 @@ body::after {
   border-color: rgba(141,198,110,0.22);
 }
 
-/* ─── LIGHT BACKGROUND CARD OVERRIDES (team section on #fff) ─── */
+/* ─── DARK GLASS CARD (team section on dark green) ─── */
 #team .mcard {
-  background: #fff;
-  border: 1.5px solid rgba(26,50,32,0.1);
-  box-shadow: 0 4px 24px rgba(26,50,32,0.08), 0 1px 0 rgba(26,50,32,0.04);
-  backdrop-filter: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.07) 0%,
+    rgba(255,255,255,0.03) 100%
+  );
+  border: 1px solid rgba(141,198,110,0.16);
+  box-shadow:
+    0 4px 28px rgba(0,0,0,0.5),
+    0 1px 0 rgba(255,255,255,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 #team .mcard::before {
-  background: linear-gradient(135deg, rgba(26,50,32,0.1) 0%, rgba(26,50,32,0.06) 100%);
-  opacity: 0.7;
+  background: linear-gradient(135deg, rgba(61,107,82,0.55) 0%, rgba(20,45,25,0.35) 100%);
+  opacity: 0.75;
 }
 
 #team .mcard::after {
-  background: rgba(26,50,32,0.05);
-  opacity: 0.5;
+  background: rgba(10,24,12,0.45);
+  opacity: 0.4;
 }
 
 #team .mcard:hover {
-  box-shadow: 0 16px 44px rgba(26,50,32,0.14), 0 0 0 1.5px rgba(61,107,82,0.25);
-  border-color: rgba(61,107,82,0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.11) 0%,
+    rgba(255,255,255,0.05) 100%
+  );
+  box-shadow:
+    0 20px 55px rgba(0,0,0,0.6),
+    0 0 0 1px rgba(141,198,110,0.3),
+    0 0 32px rgba(141,198,110,0.08);
+  border-color: rgba(141,198,110,0.3);
 }
 
 #team .mcard-victor {
-  background: linear-gradient(135deg, #f4faf0, #edf5e6);
-  border-color: rgba(61,107,82,0.18);
+  background: linear-gradient(135deg, rgba(141,198,110,0.15) 0%, rgba(90,154,90,0.08) 100%);
+  border-color: rgba(141,198,110,0.3);
+  box-shadow:
+    0 4px 32px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(141,198,110,0.22),
+    0 0 40px rgba(141,198,110,0.07);
 }
 
-#team .mname { color: #1a3220; }
-#team .mrole { color: rgba(26,50,32,0.58); }
-#team .uphint { color: rgba(61,107,82,0.55); }
+#team .mname { color: #e8f0e2; font-weight: 600; }
+#team .mrole { color: rgba(232,240,226,0.52); }
+#team .uphint { color: rgba(141,198,110,0.5); }
 
 .mavatar {
   width: 52px; height: 52px;
@@ -1327,6 +1347,75 @@ body::after {
 }
 }
 
+
+
+/* ══════════════════════════════════════════════════════════
+   SECTION DIVIDERS — Premium
+══════════════════════════════════════════════════════════ */
+.sec-divider {
+  position: relative;
+  width: 100%;
+  height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  overflow: visible;
+}
+
+/* Линия */
+.sec-divider::before {
+  content: '';
+  position: absolute;
+  left: 8%; right: 8%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(141,198,110,0.18) 15%,
+    rgba(141,198,110,0.55) 50%,
+    rgba(141,198,110,0.18) 85%,
+    transparent 100%
+  );
+}
+
+/* Центральный бриллиант */
+.sec-divider::after {
+  content: '';
+  position: relative;
+  flex-shrink: 0;
+  width: 7px; height: 7px;
+  background: var(--c-accent2);
+  transform: rotate(45deg);
+  box-shadow:
+    0 0 0 3px rgba(141,198,110,0.12),
+    0 0 18px rgba(141,198,110,0.65),
+    0 0 36px rgba(141,198,110,0.22);
+}
+
+/* Вариант для перехода team → cases (тёмный → светлый) */
+.sec-divider--mid::before {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(26,58,34,0.1) 15%,
+    rgba(42,85,48,0.45) 50%,
+    rgba(26,58,34,0.1) 85%,
+    transparent 100%
+  );
+}
+
+.sec-divider--mid::after {
+  background: #2a5530;
+  box-shadow:
+    0 0 0 3px rgba(42,85,48,0.1),
+    0 0 14px rgba(42,85,48,0.3);
+}
+
+
+
+
 /* ══════════════════════════════════════════════════════════
    UTILITY: SELECTION & FOCUS
 ══════════════════════════════════════════════════════════ */
@@ -1373,4 +1462,159 @@ body::after {
 .tgrid-curator .mcard {
   width: 100%;
   max-width: 100%;
+}
+
+/* ══════════════════════════════════════════════════════════
+   PREMIUM БЛОК · Чистота, глубина и матовое стекло
+══════════════════════════════════════════════════════════ */
+
+/* ── Герой: Мягкое растворение вместо жесткого клина ── */
+.hleft::after {
+  /* Более плавный градиент с использованием easing-логики */
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255,255,255,0.8) 40%, transparent 100%);
+  transform: none;
+  right: -100px;
+  width: 160px;
+  pointer-events: none;
+}
+
+/* ── #team: Благородный темный фон без "шума" ── */
+#team.sec {
+  /* Глубокий, насыщенный изумрудно-черный с легким свечением сверху */
+  background: 
+    radial-gradient(circle at 50% 0%, rgba(141,198,110,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #0f1e12 0%, #152918 50%, #0d1a0f 100%);
+  padding-bottom: 90px;
+  box-shadow: none;
+  border-top: 1px solid rgba(141, 198, 110, 0.05);
+}
+
+/* Очистка старых декораций */
+#team.sec::before, #team.sec::after,
+#cases.sec::before, #cases.sec::after { 
+  content: none !important; 
+}
+
+/* ── Деликатный акцент справа (взамен старого SVG) ── */
+#team .tgrid::after {
+  content: '';
+  position: absolute;
+  top: 10%; right: -40px;
+  width: 1px; height: 80%;
+  background: linear-gradient(180deg, transparent 0%, rgba(141,198,110,0.2) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ── #team: Премиальная типографика и Glass-бейджи ── */
+#team .stag         { color: var(--c-accent2) !important; letter-spacing: 0.5px; text-transform: uppercase; font-size: 0.85em; }
+#team .stag::before { background: var(--c-accent2) !important; }
+#team .sh2          { color: #ffffff !important; text-shadow: 0 4px 24px rgba(0,0,0,0.4); font-weight: 400; }
+#team .sdesc        { color: rgba(255,255,255,0.65) !important; line-height: 1.6; }
+
+#team .gbadge {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(141, 198, 110, 0.15) !important;
+  border-radius: 12px;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+}
+#team .gnum         { color: var(--c-accent2) !important; text-shadow: 0 0 24px rgba(141,198,110,0.2); }
+#team .ginfo        { color: rgba(255,255,255,0.5) !important; }
+#team .ginfo strong { color: var(--c-accent2) !important; font-weight: 500; }
+#team .mname        { color: #ffffff !important; font-weight: 500; }
+#team .mrole        { color: rgba(255,255,255,0.4) !important; }
+
+/* Разделитель куратора */
+#team .curator-divider        { color: rgba(255,255,255,0.3); }
+#team .curator-divider::before,
+#team .curator-divider::after { background: linear-gradient(90deg, transparent, rgba(141,198,110,0.2), transparent); height: 1px; }
+
+/* ── #cases: Воздушный, дорогой светлый фон ── */
+#cases.sec {
+  position: relative;
+  background: 
+    radial-gradient(circle at 100% 0%, rgba(255,255,255,0.6) 0%, transparent 50%),
+    linear-gradient(180deg, #f0f4ef 0%, #e2ebd0 100%);
+  padding-top: 90px;
+}
+
+/* ── #cases: Контрастная и читаемая типографика ── */
+#cases .stag         { color: #1a3a22 !important; letter-spacing: 0.5px; }
+#cases .stag::before { background: #1a3a22 !important; }
+#cases .sh2          { color: #0a170d !important; font-weight: 400; }
+#cases .sdesc        { color: rgba(10, 23, 13, 0.6) !important; line-height: 1.6; }
+
+/* ── Аккордеон: Эффект левитации и плавные переходы ── */
+#cases .aitem {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(10, 23, 13, 0.02) !important;
+  backdrop-filter: blur(8px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#cases .aitem:hover {
+  background: rgba(255, 255, 255, 0.8) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(10, 23, 13, 0.04) !important;
+}
+
+#cases .aitem.open {
+  background: #ffffff !important;
+  /* Дорогая, многослойная тень для активного состояния */
+  box-shadow: 
+    0 12px 32px rgba(10, 23, 13, 0.06), 
+    0 2px 4px rgba(10, 23, 13, 0.02),
+    0 0 0 1px rgba(141,198,110,0.3) !important;
+  transform: translateY(-2px);
+}
+
+#cases .amain  { color: #0a170d !important; font-weight: 500; }
+#cases .asub   { color: rgba(10, 23, 13, 0.5) !important; }
+#cases .abtn:hover { background: transparent !important; }
+
+#cases .aarrow { 
+  background: rgba(141, 198, 110, 0.15) !important; 
+  color: #2a5530 !important; 
+  transition: all 0.3s ease !important;
+}
+#cases .aitem.open .aarrow { 
+  background: #2a5530 !important; 
+  color: #ffffff !important; 
+  transform: rotate(180deg); /* Если стрелка должна крутиться */
+}
+
+.hleft::after {
+  background: #FFFFFF;
+  transform: skewX(-3.5deg);
+  right: -52px;
+  width: 104px;
+}
+
+/* ── #cases: расширенный масштаб ── */
+#cases.sec {
+  padding-top: 110px;
+  padding-bottom: 120px;
+}
+
+#cases .center {
+  max-width: 680px;
+}
+
+#cases .awrap {
+  max-width: 1060px;
+  margin-top: 64px;
+  gap: 14px;
+}
+
+#cases .abtn {
+  padding: 30px 36px;
+}
+
+#cases .abadge {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
 }

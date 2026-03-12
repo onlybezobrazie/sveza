@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import './App.css';
 
 
@@ -594,7 +595,7 @@ function PresentationModal({ week, startSlide, onClose }) {
       }
     : { inset: 0 };
 
-  return (
+  return createPortal(
     <div
       onClick={onClose}
       style={{ ...baseModalStyle, inset: 0 }}
@@ -722,7 +723,8 @@ function PresentationModal({ week, startSlide, onClose }) {
           size="large"
         />
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
@@ -976,7 +978,8 @@ function MemberCard({ member }) {
       <div>
         <div className="mname">{member.name}</div>
         <div className="mrole">{member.role}</div>
-        <div style={{width:6,height:6,borderRadius:"50%",background:member.isVictor?"#4a7c59":"#c8dab8",marginTop:8}}/>
+        <div style={{width:6,height:6,borderRadius:"50%",background:member.isVictor?"#8dc66e":"rgba(141,198,110,0.35)",marginTop:8,boxShadow:member.isVictor?"0 0 6px rgba(141,198,110,0.5)":"none"}}/>
+
       </div>
     </div>
   );
@@ -1134,7 +1137,7 @@ export default function SVEZASite() {
           </div>
         </div>
 
-        {/* ─── Правая часть: тёмно-зелёная, парящие логотипы ─── */}
+        {/* ─── Правая часть: тёмно-зелёная, парящие логотипы ─── */} 
         <div className="hright">
   <div className="hr-rings" aria-hidden="true">
     <WoodRings style={{width:"100%",height:"100%",color:"rgba(255,255,255,0.04)"}}/>
@@ -1180,8 +1183,10 @@ export default function SVEZASite() {
 </div>
       </section>
 
+        <div className="sec-divider" />
+
       {/* ══ КОМАНДА ══ */}
-      <section className="sec" id="team" style={{background:"#fff"}}>
+      <section className="sec" id="team">
         <div className="center">
           <div className="stag">Авторы проекта</div>
           <h2 className="sh2">Непризнанные гении</h2>
@@ -1214,9 +1219,10 @@ export default function SVEZASite() {
   ))}
 </div>
       </section>
-
+    <div className="sec-divider sec-divider--mid" />
       {/* ══ КЕЙСЫ ══ */}
-      <section className="sec" id="cases" style={{background:"#eef5e8"}}>
+      <section className="sec" id="cases">
+
         <div className="center">
           <div className="stag">Учебные кейсы</div>
           <h2 className="sh2">4 недели — 4 кейса</h2>
