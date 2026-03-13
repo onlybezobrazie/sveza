@@ -1648,6 +1648,12 @@ body::after {
   padding: 30px 36px;
 }
 
+@media (max-width: 768px) {
+  #cases .abtn {
+    padding: 18px 16px;
+  }
+}
+
 #cases .abadge {
   width: 56px;
   height: 56px;

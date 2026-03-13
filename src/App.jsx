@@ -877,7 +877,7 @@ function PresentationViewer({ week }) {
       {modalOpen && (
         <PresentationModal week={week} startSlide={cur} onClose={() => setModalOpen(false)} />
       )}
-      <div>
+      <div style={{width:"100%",overflow:"hidden"}}>
         <div style={{position:"relative",borderRadius:18,overflow:"hidden",boxShadow:"0 8px 48px rgba(30,60,40,0.16)",aspectRatio:"16/9",background:"#e8ede4",cursor:"pointer",width:"100%",maxWidth:"100%",boxSizing:"border-box"}}
           onClick={() => setModalOpen(true)}
         >
