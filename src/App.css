@@ -45,7 +45,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   
   line-height: 1.6;
-  /* Force full viewport width so sections don't inherit 50% from hero's flow content */
+  /* Force full viewport width so sections don't inherit 50% from hero's flow contensdsdst */ 
   min-width: 100%;
 }
 

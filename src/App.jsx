@@ -864,7 +864,7 @@ function DownloadButton({ week }) {
   );
 }
 
-/* ══ Вьюер презентации (встроенный, маленький) ══ */
+/* ══ Вьюер презентации (встроенный, маленькиsй) ══ */
 function PresentationViewer({ week }) {
   const [cur, setCur] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
