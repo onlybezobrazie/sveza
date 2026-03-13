@@ -867,7 +867,19 @@ function DownloadButton({ week }) {
 /* ══ Вьюер презентации (встроенный, маленькиsй) ══ */
 function PresentationViewer({ week }) {
   const [cur, setCur] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
+const [modalOpen, setModalOpen] = useState(false);
+const containerRef = useRef(null);
+const [scale, setScale] = useState(1);
+useEffect(() => {
+  if (!containerRef.current) return;
+  const ro = new ResizeObserver(([e]) => {
+    setScale(e.contentRect.width / 880);
+  });
+  ro.observe(containerRef.current);
+  return () => ro.disconnect();
+}, []);
+
+  
   const total = week.slides.length;
   if (!total) return null;
   const slide = week.slides[cur];
@@ -878,10 +890,13 @@ function PresentationViewer({ week }) {
         <PresentationModal week={week} startSlide={cur} onClose={() => setModalOpen(false)} />
       )}
       <div style={{width:"100%",overflow:"hidden"}}>
-        <div style={{position:"relative",borderRadius:18,overflow:"hidden",boxShadow:"0 8px 48px rgba(30,60,40,0.16)",aspectRatio:"16/9",background:"#e8ede4",cursor:"pointer",width:"100%",maxWidth:"100%",boxSizing:"border-box"}}
+        <div ref={containerRef} style={{position:"relative",borderRadius:18,overflow:"hidden",boxShadow:"0 8px 48px rgba(30,60,40,0.16)",aspectRatio:"16/9",background:"#e8ede4",cursor:"pointer",width:"100%",maxWidth:"100%",boxSizing:"border-box"}}
+
           onClick={() => setModalOpen(true)}
         >
-          {renderSlide(slide)}
+          <div style={{width:880,height:495,transform:`scale(${scale})`,transformOrigin:"top left",position:"absolute",top:0,left:0,pointerEvents:"none"}}>
+  {renderSlide(slide)}
+</div>
 
           {/* Счётчик */}
           <div style={{position:"absolute",bottom:13,right:15,fontSize:"0.67rem",color:"rgba(255,255,255,0.55)",background:"rgba(0,0,0,0.28)",borderRadius:7,padding:"3px 9px",backdropFilter:"blur(4px)"}}>{cur+1} / {total}</div>
