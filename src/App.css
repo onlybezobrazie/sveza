@@ -46,11 +46,11 @@ body {
   
   line-height: 1.6;
   /* Force full viewport width so sections don't inherit 50% from hero's flow content */
-  min-width: 100vw;
+  min-width: 100%;
 }
 
 #root {
-  min-width: 100vw;
+  min-width: 100%;
   width: 100%;
   overflow-x: hidden;
 }
