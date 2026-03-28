@@ -184,103 +184,62 @@ const WEEKS = [
       },
     ],
 
-    /* ── PNG для скачивания (положите файлы в /public/sveza/week1/) ──
-       Пример: "/sveza/week1/slide1.png", "/sveza/week1/slide2.png" и т.д.
-       Если массив пуст — кнопка скачивания не отображается. */
-    downloadSlides: [
-      "/sveza/week1/slide1.png",
-      "/sveza/week1/slide2.png",
-      "/sveza/week1/slide3.png",
-      "/sveza/week1/slide4.png",
-      "/sveza/week1/slide5.png",
-      "/sveza/week1/slide6.png",
-    ],
+   downloadSlides: [
+  "/sveza/week1/slide1.png",
+  "/sveza/week1/slide2.png",
+  "/sveza/week1/slide3.png",
+  "/sveza/week1/slide4.png",
+  "/sveza/week1/slide5.png",
+  "/sveza/week1/slide6.png",
+  "/sveza/week1/slide7.png",
+  "/sveza/week1/slide8.png",
+  "/sveza/week1/slide9.png",
+  "/sveza/week1/slide10.png",
+  "/sveza/week1/slide11.png",
+  "/sveza/week1/slide12.png",
+  "/sveza/week1/slide13.png",
+  "/sveza/week1/slide14.png",
+  "/sveza/week1/slide15.png",
+  "/sveza/week1/slide16.png",
+  "/sveza/week1/slide17.png",
+  "/sveza/week1/slide18.png",
+  "/sveza/week1/slide19.png",
+],
 
     /* ── Слайды презентации (JSX-рендер) ── */
     slides: [
-      {
-        layout: "cover",
-        bg: "linear-gradient(135deg,#1e3a28 0%,#3d6b52 60%,#6b9e6b 100%)",
-        title: "Анализ рынка\nберёзовой фанеры",
-        subtitle: "Кейс 1 · Неделя 1",
-        label: "СВЕЗА — мировой лидер",
-        icon: "🌲",
-        tags: ["Рынок", "Конкуренция", "Позиционирование"],
-      },
-      {
-        layout: "stats",
-        bg: "linear-gradient(160deg,#f4f9f0 0%,#e8f2e0 100%)",
-        title: "Компания в цифрах",
-        accent: "#3d6b52",
-        items: [
-          { num: "20%",      label: "доля мирового рынка\nберёзовой фанеры" },
-          { num: "29%",      label: "доля российского\nрынка фанеры" },
-          { num: "80",       label: "стран экспорта\nна 5 континентах" },
-          { num: "7 500",    label: "сотрудников\nв группе компаний" },
-          { num: "1.46 млн", label: "м³ производства\nв год" },
-          { num: "7",        label: "фанерных\nкомбинатов" },
-        ],
-      },
-      {
-        layout: "textimage",
-        bg: "#fff",
-        title: "Продуктовый портфель",
-        accent: "#3d6b52",
-        body: "СВЕЗА производит берёзовую, ламинированную и большеформатную фанеру, ДСП/ЛДСП, биотопливо. Уникальный продукт — фанера SVEZA Gas для СПГ-танкеров с долей 15% мирового рынка.",
-        imageLabel: "Продукция СВЕЗА",
-        imageBg: "linear-gradient(135deg,#c8dfc8,#7aab68)",
-        imageIcon: "🪵",
-        tags: ["Фанера берёзовая", "Ламинат", "СПГ-класс", "Биотопливо"],
-      },
-      {
-        layout: "timeline",
-        bg: "linear-gradient(170deg,#f8faf5 0%,#eef4e8 100%)",
-        title: "История роста",
-        accent: "#3d6b52",
-        events: [
-          { year: "1997", text: "Основание группы компаний СВЕЗА" },
-          { year: "2003", text: "Запуск 3-го комбината, выход на европейский рынок" },
-          { year: "2012", text: "FSC-сертификация всех производственных площадок" },
-          { year: "2018", text: "Запуск UV-линии лакирования фанеры" },
-          { year: "2021", text: "Расширение на рынки Африки и Азии" },
-          { year: "2023", text: "Рост поставок в Африку на 240%" },
-        ],
-      },
-      {
-        layout: "swot",
-        bg: "#fff",
-        title: "SWOT-анализ СВЕЗА",
-        accent: "#3d6b52",
-        quadrants: [
-          { label: "Сильные стороны", color: "#3d6b52", items: ["Вертикальная интеграция", "FSC по всей цепи", "20% мирового рынка", "Уникальные продукты"] },
-          { label: "Слабые стороны",  color: "#b85c38", items: ["Зависимость от курса рубля", "Концентрация в одном сегменте", "Логистические ограничения"] },
-          { label: "Возможности",     color: "#5a7ab8", items: ["Рост рынка Африки", "Цифровизация производства", "Биотопливный сегмент"] },
-          { label: "Угрозы",          color: "#9b6e1a", items: ["Санкционное давление", "Конкуренция из Азии", "Волатильность ЛПК"] },
-        ],
-      },
-      {
-        layout: "conclusion",
-        bg: "linear-gradient(135deg,#1e3a28 0%,#2d5a3a 100%)",
-        title: "Итоги анализа рынка",
-        accent: "#8ab870",
-        points: [
-          "СВЕЗА занимает устойчивую лидирующую позицию благодаря вертикальной интеграции и диверсификации.",
-          "Расширение на рынки Африки и Азии снижает зависимость от европейского направления.",
-          "Инновационные продукты (UV-фанера, SVEZA Gas) формируют premium-сегмент с высокой маржой.",
-          "Ключевой риск — экспортные ограничения при высокой доле внешних поставок.",
-        ],
-      },
-    ],
+  { layout: "image", src: "/sveza/week1/slide1.png",  objectFit: "contain", bg: "#4a7c2f" },
+  { layout: "image", src: "/sveza/week1/slide2.png",  objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide3.png",  objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide4.png",  objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide5.png",  objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide6.png",  objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide7.png",  objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide8.png",  objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide9.png",  objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide10.png", objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide11.png", objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide12.png", objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide13.png", objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide14.png", objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide15.png", objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide16.png", objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide17.png", objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide18.png", objectFit: "contain", bg: "#fff" },
+  { layout: "image", src: "/sveza/week1/slide19.png", objectFit: "contain", bg: "#fff" },
+],
+
+
   },
 
   {
     week: 2,
     ready: false,
-    title: "Продуктовая стратегия и инновации",
-    subtitle: "Диверсификация портфеля и технологическое лидерство",
+    title: "Кейс 2",
+    subtitle: "Описание",
     accent: "#5a7e3a",
     accentLight: "#d2e8be",
-    tag: "Продукт · Инновации",
+    tag: "??? · ???",
     insights: [],   // ← добавьте выводы после защиты кейса
     downloadSlides: [], // ← добавьте пути к PNG: ["/sveza/week2/slide1.png", ...]
     slides: [],     // ← добавьте слайды и поставьте ready: true
@@ -289,11 +248,11 @@ const WEEKS = [
   {
     week: 3,
     ready: false,
-    title: "Устойчивое развитие и ESG",
-    subtitle: "Экологическая ответственность и социальные программы",
+    title: "Кейс 3",
+    subtitle: "Описание",
     accent: "#4a6b5a",
     accentLight: "#c4ddd0",
-    tag: "ESG · Экология",
+    tag: "??? · ???",
     insights: [],
     downloadSlides: [],
     slides: [],
@@ -302,11 +261,11 @@ const WEEKS = [
   {
     week: 4,
     ready: false,
-    title: "Стратегия роста и будущее",
-    subtitle: "Масштабирование, M&A и цифровая трансформация",
+    title: "Кейс 4",
+    subtitle: "Описание",
     accent: "#3a5a6b",
     accentLight: "#bcd0dd",
-    tag: "Стратегия · M&A",
+    tag: "??? · ???",
     insights: [],
     downloadSlides: [],
     slides: [],
@@ -464,7 +423,9 @@ function SlideImage({ s }) {
       {s.src && (
         <img src={s.src} alt={s.title} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit: s.objectFit || "cover",objectPosition: s.objectPosition || "center"}}/>
       )}
-      <div style={{position:"absolute",inset:0,background:"linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.12) 60%, transparent 100%)"}}/>
+      {(s.title || s.caption || s.tags || s.imageIcon || s.imageLabel) && (
+  <div style={{position:"absolute",inset:0,background:"linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.12) 60%, transparent 100%)"}}/>
+)}
       <div style={{position:"relative",zIndex:1,padding:"28px 36px",width:"100%", background: s.panelBg || "transparent"}}>
         {s.tags && (
           <div style={{display:"flex",gap:8,marginBottom:10,flexWrap:"wrap"}}>
@@ -513,6 +474,8 @@ function PresentationModal({ week, startSlide, onClose }) {
   const [cur, setCur] = useState(startSlide);
   const [isPortraitMobile, setIsPortraitMobile] = useState(false);
   const [slideHovered, setSlideHovered] = useState(false);
+const [expanded, setExpanded] = useState(false);
+
   const total = week.slides.length;
 
   // Закрытие по Escape, навигация стрелками
@@ -684,22 +647,28 @@ function PresentationModal({ week, startSlide, onClose }) {
 
       {/* Шапка модалки */}
       <div
-        onClick={e => e.stopPropagation()}
-        style={{width:"100%",maxWidth:1200,display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16,animation:"slideUpModal 0.3s ease"}}
-      >
+  onClick={e => e.stopPropagation()}
+  style={{width:"100%",maxWidth:1200,display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16,animation:"slideUpModal 0.3s ease",opacity:expanded?0:1,pointerEvents:expanded?"none":"auto",transition:"opacity 0.2s"}}
+>
         <div>
           <div style={{fontSize:"0.68rem",letterSpacing:2,textTransform:"uppercase",color:"rgba(255,255,255,0.45)",fontWeight:700,marginBottom:4}}>Неделя {week.week}</div>
           <div style={{fontFamily:"'Montserrat', sans-serif",fontSize:"clamp(0.85rem,2vw,1.1rem)",color:"rgba(255,255,255,0.85)",fontWeight:600}}>{week.title}</div>
         </div>
         <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <span style={{fontSize:"0.78rem",color:"rgba(255,255,255,0.4)",fontFamily:"'Manrope', sans-serif"}}>
-            {cur + 1} / {total}
-          </span>
-          <button
-            onClick={onClose}
-            style={{width:38,height:38,borderRadius:"50%",background:"rgba(255,255,255,0.1)",border:"1.5px solid rgba(255,255,255,0.2)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"1rem",color:"rgba(255,255,255,0.7)",transition:"all 0.2s"}}
-          >✕</button>
-        </div>
+  <span style={{fontSize:"0.78rem",color:"rgba(255,255,255,0.4)",fontFamily:"'Manrope', sans-serif"}}>
+    {cur + 1} / {total}
+  </span>
+  <button
+  onClick={() => setExpanded(e => !e)}
+  title="На весь экран"
+  style={{width:38,height:38,borderRadius:"50%",background:"rgba(255,255,255,0.1)",border:"1.5px solid rgba(255,255,255,0.2)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:"rgba(255,255,255,0.7)",transition:"all 0.2s"}}
+>
+  {expanded
+    ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M8 3v5H3M21 3l-6 6M16 21v-5h5M3 21l6-6"/></svg>
+    : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+  }
+</button>
+</div>
       </div>
 
       {/* Слайд */}
@@ -707,7 +676,7 @@ function PresentationModal({ week, startSlide, onClose }) {
         onClick={e => e.stopPropagation()}
         onMouseEnter={() => setSlideHovered(true)}
         onMouseLeave={() => setSlideHovered(false)}
-        style={{width:"100%",maxWidth:1200,borderRadius:20,overflow:"hidden",boxShadow:"0 24px 80px rgba(0,0,0,0.5)",aspectRatio:"16/9",background:"#1a2e1e",animation:"slideUpModal 0.35s ease",flexShrink:0,position:"relative"}}
+        style={{width:"100%",maxWidth:expanded?"100vw":1200,borderRadius:expanded?0:20,overflow:"hidden",boxShadow:expanded?"none":"0 24px 80px rgba(0,0,0,0.5)",aspectRatio:"16/9",background:"#1a2e1e",animation:"slideUpModal 0.35s ease",flexShrink:0,position:"relative",transition:"all 0.25s ease",margin:expanded?"auto":undefined}}
       >
         {renderSlide(week.slides[cur])}
 
@@ -737,8 +706,9 @@ function PresentationModal({ week, startSlide, onClose }) {
 
       {/* Навигация */}
       <div
-        onClick={e => e.stopPropagation()}
-        style={{width:"100%",maxWidth:1200,marginTop:20,animation:"slideUpModal 0.4s ease"}}
+  onClick={e => e.stopPropagation()}
+  style={{width:"100%",maxWidth:1200,marginTop:20,animation:"slideUpModal 0.4s ease",opacity:expanded?0:1,pointerEvents:expanded?"none":"auto",transition:"opacity 0.2s"}}
+>
       >
         <SlideNav
           cur={cur} total={total}
