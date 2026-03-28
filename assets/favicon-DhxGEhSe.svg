@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Dark green background -->
+  <rect width="32" height="32" rx="7" fill="#0d1f0f"/>
+  <!-- Tree / stylized fir -->
+  <polygon points="16,4 23,14 19.5,14 25,22 19,22 19,28 13,28 13,22 7,22 12.5,14 9,14" fill="#8dc66e"/>
+</svg>
