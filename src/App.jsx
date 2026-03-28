@@ -475,6 +475,8 @@ function PresentationModal({ week, startSlide, onClose }) {
   const [isPortraitMobile, setIsPortraitMobile] = useState(false);
   const [slideHovered, setSlideHovered] = useState(false);
 const [expanded, setExpanded] = useState(false);
+const modalRef = useRef(null);
+
 
   const total = week.slides.length;
 
@@ -561,9 +563,29 @@ const [expanded, setExpanded] = useState(false);
 
   return createPortal(
     <div
-      onClick={onClose}
-      style={{ ...baseModalStyle, inset: 0 }}
-    >
+  ref={modalRef}
+  onClick={onClose}
+  style={{ ...baseModalStyle, ...positionStyle }}
+>
+
+{expanded && (
+  <button
+    onClick={() => { document.exitFullscreen(); setExpanded(false); }}
+    style={{
+  position:"fixed", top:16, right:16, zIndex:9999,
+  width:44, height:44, borderRadius:"50%",
+  background:"rgba(0,0,0,0.55)", backdropFilter:"blur(8px)",
+  border:"1.5px solid rgba(255,255,255,0.25)",
+  color:"rgba(255,255,255,0.85)", cursor:"pointer",
+  display:"flex", alignItems:"center", justifyContent:"center",
+  fontSize:"1rem",
+}}
+    title="Выйти из полного экрана"
+  >
+    <span style={{fontSize:"1.1rem",lineHeight:1}}>✕</span>
+  </button>
+)}
+
       <style>{`
         @keyframes fadeInModal { from { opacity:0; } to { opacity:1; } }
         @keyframes slideUpModal { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
@@ -659,14 +681,21 @@ const [expanded, setExpanded] = useState(false);
     {cur + 1} / {total}
   </span>
   <button
-  onClick={() => setExpanded(e => !e)}
+  onClick={() => {
+  if (!document.fullscreenElement) {
+    modalRef.current?.requestFullscreen();
+    setExpanded(true);
+  } else {
+    document.exitFullscreen();
+    setExpanded(false);
+  }
+}}
   title="На весь экран"
   style={{width:38,height:38,borderRadius:"50%",background:"rgba(255,255,255,0.1)",border:"1.5px solid rgba(255,255,255,0.2)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",color:"rgba(255,255,255,0.7)",transition:"all 0.2s"}}
 >
-  {expanded
-    ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M8 3v5H3M21 3l-6 6M16 21v-5h5M3 21l6-6"/></svg>
-    : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-  }
+  <span style={{fontSize:"0.75rem",fontWeight:700,letterSpacing:"0.5px",lineHeight:1}}>
+  {expanded ? "СВЕРНУТЬ" : "⛶"}
+</span>
 </button>
 </div>
       </div>
@@ -709,7 +738,7 @@ const [expanded, setExpanded] = useState(false);
   onClick={e => e.stopPropagation()}
   style={{width:"100%",maxWidth:1200,marginTop:20,animation:"slideUpModal 0.4s ease",opacity:expanded?0:1,pointerEvents:expanded?"none":"auto",transition:"opacity 0.2s"}}
 >
-      >
+      
         <SlideNav
           cur={cur} total={total}
           onPrev={() => setCur(c => Math.max(0, c - 1))}
